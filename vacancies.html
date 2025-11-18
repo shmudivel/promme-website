@@ -3,140 +3,250 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Каталог вакансий - IC Job</title>
-    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    <title>Каталог вакансий - PROMME</title>
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 </head>
 <body>
+    <!-- Header -->
     <header class="header">
         <div class="container">
-            <nav class="navbar">
+            <div class="header-content">
                 <div class="logo">
-                    <h1>IC Job</h1>
-                    <span class="logo-subtitle">Индустриальные карьеры</span>
+                    <a href="index.html">PROMME</a>
                 </div>
-                <ul class="nav-menu">
-                    <li><a href="index.html">Главная</a></li>
-                    <li><a href="vacancies.html" class="active">Вакансии</a></li>
-                    <li><a href="parks.html">Парки</a></li>
-                </ul>
-            </nav>
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="vacancies.html" class="active">Каталог вакансий</a></li>
+                        <li><a href="parks.html">Карта промышленных объектов</a></li>
+                        <li><a href="index.html#about">О портале</a></li>
+                        <li><a href="#help">Помощь</a></li>
+                        <li><a href="#news">Новости и статьи</a></li>
+                    </ul>
+                </nav>
+                <div class="header-actions">
+                    <div class="contact-info">
+                        <a href="tel:+78633092212">8 (863) 309 22 12</a>
+                        <a href="mailto:promme@gmail.com">promme@gmail.com</a>
+                    </div>
+                    <button class="btn-primary" onclick="window.location.href='#post-vacancy'">Разместить вакансию</button>
+                </div>
+            </div>
         </div>
     </header>
 
-    <main>
-        <section class="page-header">
-            <div class="container">
-                <h1>Каталог вакансий</h1>
-                <p>Найдите работу мечты в индустриальных парках</p>
+    <!-- Vacancies Hero -->
+    <section class="vacancies-hero">
+        <div class="container">
+            <h1>Каталог вакансий</h1>
+            <div class="search-filters">
+                <input type="text" id="vacancySearch" placeholder="Должность, компания, ключевые слова...">
+                <select id="locationFilter">
+                    <option value="">Все локации</option>
+                    <option value="synkovo">Сынково 1</option>
+                    <option value="koledino">Коледино</option>
+                    <option value="tomilino">Томилино</option>
+                </select>
+                <select id="salaryFilter">
+                    <option value="">Зарплата</option>
+                    <option value="50000">от 50 000 ₽</option>
+                    <option value="70000">от 70 000 ₽</option>
+                    <option value="100000">от 100 000 ₽</option>
+                </select>
+                <button class="btn-search">Найти</button>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section class="catalog-section">
-            <div class="container">
-                <div class="catalog-layout">
-                    <aside class="filters-sidebar">
-                        <div class="filter-card">
-                            <h3>Фильтры</h3>
-                            
-                            <div class="filter-group">
-                                <label for="searchFilter">Поиск</label>
-                                <input type="text" id="searchFilter" placeholder="Должность или компания" class="filter-input">
-                            </div>
-
-                            <div class="filter-group">
-                                <label for="salaryFilter">Зарплата от (₽)</label>
-                                <input type="number" id="salaryFilter" placeholder="30000" class="filter-input">
-                            </div>
-
-                            <div class="filter-group">
-                                <label for="experienceFilter">Опыт работы</label>
-                                <select id="experienceFilter" class="filter-select">
-                                    <option value="">Все</option>
-                                    <option value="Без опыта">Без опыта</option>
-                                    <option value="1-3 года">1-3 года</option>
-                                    <option value="3-5 лет">3-5 лет</option>
-                                    <option value="Более 5 лет">Более 5 лет</option>
-                                </select>
-                            </div>
-
-                            <div class="filter-group">
-                                <label for="scheduleFilter">График работы</label>
-                                <select id="scheduleFilter" class="filter-select">
-                                    <option value="">Все</option>
-                                    <option value="Полный день">Полный день</option>
-                                    <option value="Сменный график">Сменный график</option>
-                                    <option value="Гибкий график">Гибкий график</option>
-                                </select>
-                            </div>
-
-                            <div class="filter-group">
-                                <label for="workFormatFilter">Формат работы</label>
-                                <select id="workFormatFilter" class="filter-select">
-                                    <option value="">Все</option>
-                                    <option value="В офисе">В офисе</option>
-                                    <option value="Гибрид">Гибрид</option>
-                                    <option value="Удаленно">Удаленно</option>
-                                </select>
-                            </div>
-
-                            <button class="btn btn-primary btn-block" id="applyFilters">Применить</button>
-                            <button class="btn btn-secondary btn-block" id="resetFilters">Сбросить</button>
-                        </div>
-                    </aside>
-
-                    <div class="catalog-content">
-                        <div class="catalog-header">
-                            <div class="results-count" id="resultsCount">Найдено: 0 вакансий</div>
-                            <div class="sort-controls">
-                                <label for="sortSelect">Сортировка:</label>
-                                <select id="sortSelect" class="filter-select">
-                                    <option value="date">По дате</option>
-                                    <option value="salary">По зарплате</option>
-                                    <option value="title">По названию</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div id="vacanciesList" class="vacancies-list">
-                            <div class="loading">Загрузка вакансий...</div>
-                        </div>
-
-                        <div class="pagination" id="pagination"></div>
+    <!-- Vacancies List -->
+    <section class="vacancies-list-section">
+        <div class="container">
+            <div class="vacancies-grid">
+                <!-- Vacancy Card 1 -->
+                <div class="vacancy-card">
+                    <div class="vacancy-header">
+                        <h3>Оператор клипсатора</h3>
+                        <span class="salary-badge">от 80 000 ₽/мес</span>
                     </div>
+                    <div class="company-info">
+                        <img src="assets/companies/poly-clip.png" alt="ООО «Поли-клип»" class="company-logo-small">
+                        <div>
+                            <h4>ООО «Поли-клип»</h4>
+                            <p class="location">📍 Коледино</p>
+                        </div>
+                    </div>
+                    <div class="vacancy-details">
+                        <span>⏰ Полный день</span>
+                        <span>📊 От 3 до 6 лет</span>
+                    </div>
+                    <div class="vacancy-tags">
+                        <span>#производство</span>
+                        <span>#оператор</span>
+                    </div>
+                    <button class="btn-primary">Откликнуться</button>
+                </div>
+
+                <!-- Vacancy Card 2 -->
+                <div class="vacancy-card">
+                    <div class="vacancy-header">
+                        <h3>Контролёр качества</h3>
+                        <span class="salary-badge">от 70 000 ₽/мес</span>
+                    </div>
+                    <div class="company-info">
+                        <img src="assets/companies/poly-clip.png" alt="ООО «Поли-клип»" class="company-logo-small">
+                        <div>
+                            <h4>ООО «Поли-клип»</h4>
+                            <p class="location">📍 Коледино</p>
+                        </div>
+                    </div>
+                    <div class="vacancy-details">
+                        <span>⏰ Полный день</span>
+                        <span>📊 От 1 до 3 лет</span>
+                    </div>
+                    <div class="vacancy-tags">
+                        <span>#качество</span>
+                        <span>#контроль</span>
+                    </div>
+                    <button class="btn-primary">Откликнуться</button>
+                </div>
+
+                <!-- Vacancy Card 3 -->
+                <div class="vacancy-card">
+                    <div class="vacancy-header">
+                        <h3>Супервайзер</h3>
+                        <span class="salary-badge">от 90 000 ₽/мес</span>
+                    </div>
+                    <div class="company-info">
+                        <img src="assets/companies/med-and-more.png" alt="MED AND MORE" class="company-logo-small">
+                        <div>
+                            <h4>MED AND MORE</h4>
+                            <p class="location">📍 Сынково 3</p>
+                        </div>
+                    </div>
+                    <div class="vacancy-details">
+                        <span>⏰ Гибкий график</span>
+                        <span>📊 От 3 до 6 лет</span>
+                    </div>
+                    <div class="vacancy-tags">
+                        <span>#управление</span>
+                        <span>#логистика</span>
+                    </div>
+                    <button class="btn-primary">Откликнуться</button>
+                </div>
+
+                <!-- Vacancy Card 4 -->
+                <div class="vacancy-card">
+                    <div class="vacancy-header">
+                        <h3>Оператор упаковки</h3>
+                        <span class="salary-badge">от 65 000 ₽/мес</span>
+                    </div>
+                    <div class="company-info">
+                        <img src="assets/companies/poly-clip.png" alt="ООО «Поли-клип»" class="company-logo-small">
+                        <div>
+                            <h4>ООО «Поли-клип»</h4>
+                            <p class="location">📍 Томилино</p>
+                        </div>
+                    </div>
+                    <div class="vacancy-details">
+                        <span>⏰ Сменный график</span>
+                        <span>📊 Без опыта</span>
+                    </div>
+                    <div class="vacancy-tags">
+                        <span>#производство</span>
+                        <span>#упаковка</span>
+                    </div>
+                    <button class="btn-primary">Откликнуться</button>
+                </div>
+
+                <!-- Vacancy Card 5 -->
+                <div class="vacancy-card">
+                    <div class="vacancy-header">
+                        <h3>Кладовщик расходников</h3>
+                        <span class="salary-badge">от 60 000 ₽/мес</span>
+                    </div>
+                    <div class="company-info">
+                        <img src="assets/companies/poly-clip.png" alt="ООО «Поли-клип»" class="company-logo-small">
+                        <div>
+                            <h4>ООО «Поли-клип»</h4>
+                            <p class="location">📍 Коледино</p>
+                        </div>
+                    </div>
+                    <div class="vacancy-details">
+                        <span>⏰ Полный день</span>
+                        <span>📊 От 1 до 3 лет</span>
+                    </div>
+                    <div class="vacancy-tags">
+                        <span>#склад</span>
+                        <span>#логистика</span>
+                    </div>
+                    <button class="btn-primary">Откликнуться</button>
+                </div>
+
+                <!-- Vacancy Card 6 -->
+                <div class="vacancy-card">
+                    <div class="vacancy-header">
+                        <h3>Сервисный инженер</h3>
+                        <span class="salary-badge">от 100 000 ₽/мес</span>
+                    </div>
+                    <div class="company-info">
+                        <img src="assets/companies/poly-clip.png" alt="ООО «Поли-клип»" class="company-logo-small">
+                        <div>
+                            <h4>ООО «Поли-клип»</h4>
+                            <p class="location">📍 Коледино</p>
+                        </div>
+                    </div>
+                    <div class="vacancy-details">
+                        <span>⏰ Полный день</span>
+                        <span>📊 От 3 до 6 лет</span>
+                    </div>
+                    <div class="vacancy-tags">
+                        <span>#инженер</span>
+                        <span>#сервис</span>
+                    </div>
+                    <button class="btn-primary">Откликнуться</button>
                 </div>
             </div>
-        </section>
-    </main>
 
+            <div class="pagination">
+                <button class="page-btn active">1</button>
+                <button class="page-btn">2</button>
+                <button class="page-btn">3</button>
+                <button class="page-btn">...</button>
+                <button class="page-btn">10</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h3>IC Job</h3>
-                    <p>Портал вакансий индустриальных парков</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Навигация</h4>
+                    <h3>Меню</h3>
                     <ul>
-                        <li><a href="index.html">Главная</a></li>
-                        <li><a href="vacancies.html">Вакансии</a></li>
-                        <li><a href="parks.html">Парки</a></li>
+                        <li><a href="vacancies.html">Каталог вакансий</a></li>
+                        <li><a href="parks.html">Информация об индустриальных парках</a></li>
+                        <li><a href="index.html#about">О компании</a></li>
+                        <li><a href="#help">Помощь</a></li>
+                        <li><a href="#news">Новости и статьи</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h4>Контакты</h4>
-                    <p>Email: info@icjob.ru</p>
-                    <p>Телефон: +7 (495) 123-45-67</p>
+                    <h3>Контакты</h3>
+                    <ul>
+                        <li><a href="mailto:promme@gmail.com">promme@gmail.com</a></li>
+                        <li><a href="tel:+78633092212">8 (863) 309 22 12</a></li>
+                    </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 IC Job. Все права защищены.</p>
+                <p>PROMME © Все права защищены</p>
+                <a href="#privacy">Политика конфиденциальности</a>
             </div>
         </div>
     </footer>
 
-    <script src="js/data.js"></script>
+    <script src="js/app.js"></script>
     <script src="js/vacancies.js"></script>
 </body>
 </html>

@@ -1,264 +1,156 @@
-// Vacancies page functionality
+// Vacancies Page JavaScript
 
-let currentPage = 1;
-const itemsPerPage = 10;
-let filteredVacancies = [...vacanciesData];
-
-document.addEventListener('DOMContentLoaded', () => {
-    initializeVacanciesPage();
-    setupFilters();
-    setupSorting();
-    checkURLParameters();
+document.addEventListener('DOMContentLoaded', function() {
+    initializeVacancyFilters();
+    initializeVacancyCards();
+    loadSearchParams();
 });
 
-function initializeVacanciesPage() {
-    renderVacancies();
-    renderPagination();
-}
-
-function checkURLParameters() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const searchQuery = urlParams.get('search');
+function initializeVacancyFilters() {
+    const searchButton = document.querySelector('.btn-search');
+    const searchInput = document.getElementById('vacancySearch');
     
-    if (searchQuery) {
-        const searchFilter = document.getElementById('searchFilter');
-        if (searchFilter) {
-            searchFilter.value = searchQuery;
-            applyFilters();
-        }
-    }
-}
-
-function setupFilters() {
-    const applyFiltersBtn = document.getElementById('applyFilters');
-    const resetFiltersBtn = document.getElementById('resetFilters');
-    
-    if (applyFiltersBtn) {
-        applyFiltersBtn.addEventListener('click', applyFilters);
+    if (searchButton) {
+        searchButton.addEventListener('click', filterVacancies);
     }
     
-    if (resetFiltersBtn) {
-        resetFiltersBtn.addEventListener('click', resetFilters);
-    }
-}
-
-function applyFilters() {
-    const searchValue = document.getElementById('searchFilter')?.value.toLowerCase() || '';
-    const salaryValue = parseInt(document.getElementById('salaryFilter')?.value) || 0;
-    const experienceValue = document.getElementById('experienceFilter')?.value || '';
-    const scheduleValue = document.getElementById('scheduleFilter')?.value || '';
-    const workFormatValue = document.getElementById('workFormatFilter')?.value || '';
-    
-    filteredVacancies = vacanciesData.filter(vacancy => {
-        const matchesSearch = !searchValue || 
-            vacancy.title.toLowerCase().includes(searchValue) ||
-            vacancy.company.toLowerCase().includes(searchValue) ||
-            vacancy.description.toLowerCase().includes(searchValue);
-        
-        const matchesSalary = !salaryValue || 
-            parseInt(vacancy.salary.split('-')[0]) >= salaryValue;
-        
-        const matchesExperience = !experienceValue || 
-            vacancy.experience === experienceValue;
-        
-        const matchesSchedule = !scheduleValue || 
-            vacancy.schedule === scheduleValue;
-        
-        const matchesWorkFormat = !workFormatValue || 
-            vacancy.workFormat === workFormatValue;
-        
-        return matchesSearch && matchesSalary && matchesExperience && 
-               matchesSchedule && matchesWorkFormat;
-    });
-    
-    currentPage = 1;
-    renderVacancies();
-    renderPagination();
-}
-
-function resetFilters() {
-    document.getElementById('searchFilter').value = '';
-    document.getElementById('salaryFilter').value = '';
-    document.getElementById('experienceFilter').value = '';
-    document.getElementById('scheduleFilter').value = '';
-    document.getElementById('workFormatFilter').value = '';
-    
-    filteredVacancies = [...vacanciesData];
-    currentPage = 1;
-    renderVacancies();
-    renderPagination();
-}
-
-function setupSorting() {
-    const sortSelect = document.getElementById('sortSelect');
-    
-    if (sortSelect) {
-        sortSelect.addEventListener('change', (event) => {
-            const sortBy = event.target.value;
-            sortVacancies(sortBy);
-            renderVacancies();
+    if (searchInput) {
+        searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                filterVacancies();
+            }
         });
     }
-}
-
-function sortVacancies(sortBy) {
-    switch (sortBy) {
-        case 'date':
-            filteredVacancies.sort((a, b) => new Date(b.date) - new Date(a.date));
-            break;
-        case 'salary':
-            filteredVacancies.sort((a, b) => {
-                const salaryA = parseInt(a.salary.split('-')[0]);
-                const salaryB = parseInt(b.salary.split('-')[0]);
-                return salaryB - salaryA;
-            });
-            break;
-        case 'title':
-            filteredVacancies.sort((a, b) => a.title.localeCompare(b.title));
-            break;
+    
+    // Filter dropdowns
+    const locationFilter = document.getElementById('locationFilter');
+    const salaryFilter = document.getElementById('salaryFilter');
+    
+    if (locationFilter) {
+        locationFilter.addEventListener('change', filterVacancies);
+    }
+    
+    if (salaryFilter) {
+        salaryFilter.addEventListener('change', filterVacancies);
     }
 }
 
-function renderVacancies() {
-    const vacanciesListContainer = document.getElementById('vacanciesList');
-    const resultsCountElement = document.getElementById('resultsCount');
+function filterVacancies() {
+    const searchValue = document.getElementById('vacancySearch')?.value.toLowerCase() || '';
+    const locationValue = document.getElementById('locationFilter')?.value || '';
+    const salaryValue = document.getElementById('salaryFilter')?.value || '';
     
-    if (!vacanciesListContainer) return;
+    const vacancyCards = document.querySelectorAll('.vacancy-card');
     
-    // Update results count
-    if (resultsCountElement) {
-        resultsCountElement.textContent = `Найдено: ${filteredVacancies.length} вакансий`;
-    }
-    
-    // Calculate pagination
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    const vacanciesPage = filteredVacancies.slice(startIndex, endIndex);
-    
-    // Render vacancies
-    vacanciesListContainer.innerHTML = '';
-    
-    if (vacanciesPage.length === 0) {
-        vacanciesListContainer.innerHTML = '<div class="loading">Вакансии не найдены. Попробуйте изменить фильтры.</div>';
-        return;
-    }
-    
-    vacanciesPage.forEach(vacancy => {
-        const vacancyItem = createVacancyListItem(vacancy);
-        vacanciesListContainer.appendChild(vacancyItem);
+    vacancyCards.forEach(card => {
+        const title = card.querySelector('h3')?.textContent.toLowerCase() || '';
+        const company = card.querySelector('h4')?.textContent.toLowerCase() || '';
+        const location = card.querySelector('.location')?.textContent.toLowerCase() || '';
+        const salaryText = card.querySelector('.salary-badge')?.textContent || '';
+        
+        let showCard = true;
+        
+        // Search filter
+        if (searchValue && !title.includes(searchValue) && !company.includes(searchValue)) {
+            showCard = false;
+        }
+        
+        // Location filter
+        if (locationValue && !location.includes(locationValue)) {
+            showCard = false;
+        }
+        
+        // Salary filter
+        if (salaryValue) {
+            const salaryNumbersOnly = salaryText.replace(/\D/g, '');
+            const salary = parseInt(salaryNumbersOnly);
+            const minimumSalary = parseInt(salaryValue);
+            
+            // If salary is missing or malformed (NaN), hide the card when filter is applied
+            if (isNaN(salary) || salary < minimumSalary) {
+                showCard = false;
+            }
+        }
+        
+        card.style.display = showCard ? 'block' : 'none';
     });
 }
 
-function createVacancyListItem(vacancy) {
-    const item = document.createElement('div');
-    item.className = 'vacancy-list-item';
-    item.onclick = () => showVacancyDetails(vacancy);
+function initializeVacancyCards() {
+    const vacancyCards = document.querySelectorAll('.vacancy-card');
     
-    item.innerHTML = `
-        <div class="vacancy-list-header">
-            <div class="vacancy-list-info">
-                <h3>${vacancy.title}</h3>
-                <p class="vacancy-list-company">${vacancy.company}</p>
-            </div>
-            <div class="vacancy-list-salary">${formatSalary(vacancy.salary)}</div>
-        </div>
-        <p style="color: var(--text-secondary); margin-bottom: 0.75rem;">${vacancy.description}</p>
-        <div class="vacancy-list-details">
-            <span class="detail-badge">Опыт: ${vacancy.experience}</span>
-            <span class="detail-badge">${vacancy.schedule}</span>
-            <span class="detail-badge">${vacancy.workFormat}</span>
-        </div>
-    `;
-    
-    return item;
+    vacancyCards.forEach(card => {
+        const applyButton = card.querySelector('.btn-primary');
+        
+        if (applyButton) {
+            applyButton.addEventListener('click', function() {
+                const vacancyTitle = card.querySelector('h3')?.textContent || '';
+                const companyName = card.querySelector('h4')?.textContent || '';
+                
+                // Show application form or redirect
+                showApplicationForm(vacancyTitle, companyName);
+            });
+        }
+    });
 }
 
-function renderPagination() {
-    const paginationContainer = document.getElementById('pagination');
+function showApplicationForm(vacancyTitle, companyName) {
+    alert(`Откликнуться на вакансию:\n${vacancyTitle}\nКомпания: ${companyName}\n\nФункционал в разработке...`);
+    console.log('Apply for:', vacancyTitle, 'at', companyName);
+}
+
+function loadSearchParams() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const searchParam = urlParams.get('search');
+    const locationParam = urlParams.get('location');
+    const companyParam = urlParams.get('company');
     
-    if (!paginationContainer) return;
-    
-    const totalPages = Math.ceil(filteredVacancies.length / itemsPerPage);
-    
-    if (totalPages <= 1) {
-        paginationContainer.innerHTML = '';
-        return;
-    }
-    
-    paginationContainer.innerHTML = '';
-    
-    // Previous button
-    if (currentPage > 1) {
-        const prevBtn = createPageButton('« Назад', currentPage - 1);
-        paginationContainer.appendChild(prevBtn);
-    }
-    
-    // Page numbers
-    for (let pageNumber = 1; pageNumber <= totalPages; pageNumber++) {
-        if (
-            pageNumber === 1 ||
-            pageNumber === totalPages ||
-            (pageNumber >= currentPage - 1 && pageNumber <= currentPage + 1)
-        ) {
-            const pageBtn = createPageButton(pageNumber, pageNumber);
-            if (pageNumber === currentPage) {
-                pageBtn.classList.add('active');
-            }
-            paginationContainer.appendChild(pageBtn);
-        } else if (
-            pageNumber === currentPage - 2 ||
-            pageNumber === currentPage + 2
-        ) {
-            const ellipsis = document.createElement('span');
-            ellipsis.textContent = '...';
-            ellipsis.style.padding = '0.5rem';
-            paginationContainer.appendChild(ellipsis);
+    if (searchParam) {
+        const searchInput = document.getElementById('vacancySearch');
+        if (searchInput) {
+            searchInput.value = searchParam;
+            filterVacancies();
         }
     }
     
-    // Next button
-    if (currentPage < totalPages) {
-        const nextBtn = createPageButton('Вперед »', currentPage + 1);
-        paginationContainer.appendChild(nextBtn);
+    if (locationParam) {
+        const locationFilter = document.getElementById('locationFilter');
+        if (locationFilter) {
+            // Try to match location
+            const options = locationFilter.querySelectorAll('option');
+            options.forEach(option => {
+                if (locationParam.toLowerCase().includes(option.textContent.toLowerCase())) {
+                    locationFilter.value = option.value;
+                }
+            });
+            filterVacancies();
+        }
     }
-}
-
-function createPageButton(text, pageNumber) {
-    const button = document.createElement('button');
-    button.className = 'page-btn';
-    button.textContent = text;
-    button.addEventListener('click', () => {
-        currentPage = pageNumber;
-        renderVacancies();
-        renderPagination();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-    return button;
-}
-
-function formatSalary(salary) {
-    if (!salary) return 'Не указана';
     
-    const parts = salary.split('-');
-    if (parts.length === 2) {
-        return `${formatNumber(parts[0])} - ${formatNumber(parts[1])} ₽`;
+    if (companyParam) {
+        const searchInput = document.getElementById('vacancySearch');
+        if (searchInput) {
+            searchInput.value = companyParam;
+            filterVacancies();
+        }
     }
-    return `${formatNumber(salary)} ₽`;
 }
 
-function formatNumber(numString) {
-    const num = parseInt(numString);
-    return num.toLocaleString('ru-RU');
-}
-
-function showVacancyDetails(vacancy) {
-    alert(`${vacancy.title}\n\n` +
-          `Компания: ${vacancy.company}\n` +
-          `Зарплата: ${formatSalary(vacancy.salary)}\n` +
-          `Опыт: ${vacancy.experience}\n` +
-          `График: ${vacancy.schedule}\n` +
-          `Формат: ${vacancy.workFormat}\n\n` +
-          `${vacancy.description}\n\n` +
-          `Дата публикации: ${new Date(vacancy.date).toLocaleDateString('ru-RU')}`);
-}
+// Pagination
+const paginationButtons = document.querySelectorAll('.page-btn');
+paginationButtons.forEach(button => {
+    button.addEventListener('click', function() {
+        if (this.textContent === '...') return;
+        
+        paginationButtons.forEach(btn => btn.classList.remove('active'));
+        this.classList.add('active');
+        
+        // Scroll to top of vacancies list
+        document.querySelector('.vacancies-list-section').scrollIntoView({ 
+            behavior: 'smooth' 
+        });
+        
+        console.log('Loading page:', this.textContent);
+    });
+});
 
