@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Индустриальные парки - IC Job</title>
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <h1>IC Job</h1>
+                    <span class="logo-subtitle">Индустриальные карьеры</span>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="vacancies.html">Вакансии</a></li>
+                    <li><a href="parks.html" class="active">Парки</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <div class="container">
+                <h1>Индустриальные парки</h1>
+                <p>Изучите индустриальные парки и найдите лучшие возможности</p>
+            </div>
+        </section>
+
+        <section class="parks-catalog-section">
+            <div class="container">
+                <div class="search-bar">
+                    <input type="text" id="parksSearch" placeholder="Поиск по названию, адресу или отрасли..." class="search-input">
+                    <button class="btn btn-primary" id="searchParksBtn">Поиск</button>
+                </div>
+
+                <div class="filter-tags" id="industryTags">
+                    <span class="tag active" data-industry="all">Все</span>
+                    <span class="tag" data-industry="Машиностроение">Машиностроение</span>
+                    <span class="tag" data-industry="Электроника">Электроника</span>
+                    <span class="tag" data-industry="Логистика">Логистика</span>
+                    <span class="tag" data-industry="Производство">Производство</span>
+                    <span class="tag" data-industry="Химическая промышленность">Химия</span>
+                    <span class="tag" data-industry="Пищевая промышленность">Пищевая</span>
+                </div>
+
+                <div class="results-info">
+                    <span id="parksCount">Найдено парков: 0</span>
+                </div>
+
+                <div id="parksList" class="parks-grid">
+                    <div class="loading">Загрузка парков...</div>
+                </div>
+
+                <button class="btn btn-secondary btn-block" id="loadMoreParks" style="display: none;">Загрузить ещё</button>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>IC Job</h3>
+                    <p>Портал вакансий индустриальных парков</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Навигация</h4>
+                    <ul>
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="vacancies.html">Вакансии</a></li>
+                        <li><a href="parks.html">Парки</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Контакты</h4>
+                    <p>Email: info@icjob.ru</p>
+                    <p>Телефон: +7 (495) 123-45-67</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 IC Job. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/parks.js"></script>
+</body>
+</html>
+

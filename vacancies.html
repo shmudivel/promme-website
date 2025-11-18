@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Каталог вакансий - IC Job</title>
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <h1>IC Job</h1>
+                    <span class="logo-subtitle">Индустриальные карьеры</span>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="vacancies.html" class="active">Вакансии</a></li>
+                    <li><a href="parks.html">Парки</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <div class="container">
+                <h1>Каталог вакансий</h1>
+                <p>Найдите работу мечты в индустриальных парках</p>
+            </div>
+        </section>
+
+        <section class="catalog-section">
+            <div class="container">
+                <div class="catalog-layout">
+                    <aside class="filters-sidebar">
+                        <div class="filter-card">
+                            <h3>Фильтры</h3>
+                            
+                            <div class="filter-group">
+                                <label for="searchFilter">Поиск</label>
+                                <input type="text" id="searchFilter" placeholder="Должность или компания" class="filter-input">
+                            </div>
+
+                            <div class="filter-group">
+                                <label for="salaryFilter">Зарплата от (₽)</label>
+                                <input type="number" id="salaryFilter" placeholder="30000" class="filter-input">
+                            </div>
+
+                            <div class="filter-group">
+                                <label for="experienceFilter">Опыт работы</label>
+                                <select id="experienceFilter" class="filter-select">
+                                    <option value="">Все</option>
+                                    <option value="Без опыта">Без опыта</option>
+                                    <option value="1-3 года">1-3 года</option>
+                                    <option value="3-5 лет">3-5 лет</option>
+                                    <option value="Более 5 лет">Более 5 лет</option>
+                                </select>
+                            </div>
+
+                            <div class="filter-group">
+                                <label for="scheduleFilter">График работы</label>
+                                <select id="scheduleFilter" class="filter-select">
+                                    <option value="">Все</option>
+                                    <option value="Полный день">Полный день</option>
+                                    <option value="Сменный график">Сменный график</option>
+                                    <option value="Гибкий график">Гибкий график</option>
+                                </select>
+                            </div>
+
+                            <div class="filter-group">
+                                <label for="workFormatFilter">Формат работы</label>
+                                <select id="workFormatFilter" class="filter-select">
+                                    <option value="">Все</option>
+                                    <option value="В офисе">В офисе</option>
+                                    <option value="Гибрид">Гибрид</option>
+                                    <option value="Удаленно">Удаленно</option>
+                                </select>
+                            </div>
+
+                            <button class="btn btn-primary btn-block" id="applyFilters">Применить</button>
+                            <button class="btn btn-secondary btn-block" id="resetFilters">Сбросить</button>
+                        </div>
+                    </aside>
+
+                    <div class="catalog-content">
+                        <div class="catalog-header">
+                            <div class="results-count" id="resultsCount">Найдено: 0 вакансий</div>
+                            <div class="sort-controls">
+                                <label for="sortSelect">Сортировка:</label>
+                                <select id="sortSelect" class="filter-select">
+                                    <option value="date">По дате</option>
+                                    <option value="salary">По зарплате</option>
+                                    <option value="title">По названию</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div id="vacanciesList" class="vacancies-list">
+                            <div class="loading">Загрузка вакансий...</div>
+                        </div>
+
+                        <div class="pagination" id="pagination"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>IC Job</h3>
+                    <p>Портал вакансий индустриальных парков</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Навигация</h4>
+                    <ul>
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="vacancies.html">Вакансии</a></li>
+                        <li><a href="parks.html">Парки</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Контакты</h4>
+                    <p>Email: info@icjob.ru</p>
+                    <p>Телефон: +7 (495) 123-45-67</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 IC Job. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/vacancies.js"></script>
+</body>
+</html>
+

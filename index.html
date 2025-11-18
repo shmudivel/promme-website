@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IC Job - Портал вакансий индустриальных парков</title>
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <h1>IC Job</h1>
+                    <span class="logo-subtitle">Индустриальные карьеры</span>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="active">Главная</a></li>
+                    <li><a href="vacancies.html">Вакансии</a></li>
+                    <li><a href="parks.html">Парки</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h2 class="hero-title">Найдите работу в индустриальных парках</h2>
+                    <p class="hero-subtitle">Тысячи вакансий от ведущих работодателей индустриальных зон</p>
+                    <div class="search-box">
+                        <input type="text" id="quickSearchInput" placeholder="Должность, компания или ключевое слово..." class="search-input">
+                        <button class="btn btn-primary" id="quickSearchBtn">Поиск</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="stats-section">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">1,234</div>
+                        <div class="stat-label">Активных вакансий</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">56</div>
+                        <div class="stat-label">Индустриальных парков</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">890</div>
+                        <div class="stat-label">Компаний</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">12,500+</div>
+                        <div class="stat-label">Трудоустроенных</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="featured-section">
+            <div class="container">
+                <h2 class="section-title">Популярные вакансии</h2>
+                <div id="featuredVacancies" class="vacancy-grid">
+                    <div class="loading">Загрузка...</div>
+                </div>
+                <div class="text-center">
+                    <a href="vacancies.html" class="btn btn-secondary">Все вакансии</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="parks-section">
+            <div class="container">
+                <h2 class="section-title">Индустриальные парки</h2>
+                <div id="featuredParks" class="parks-grid">
+                    <div class="loading">Загрузка...</div>
+                </div>
+                <div class="text-center">
+                    <a href="parks.html" class="btn btn-secondary">Все парки</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>IC Job</h3>
+                    <p>Портал вакансий индустриальных парков</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Навигация</h4>
+                    <ul>
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="vacancies.html">Вакансии</a></li>
+                        <li><a href="parks.html">Парки</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Контакты</h4>
+                    <p>Email: info@icjob.ru</p>
+                    <p>Телефон: +7 (495) 123-45-67</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 IC Job. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
+

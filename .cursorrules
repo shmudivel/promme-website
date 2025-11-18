@@ -1,0 +1,103 @@
+# IC Job - Project Rules
+
+## 🎯 Project Type
+**DEMO PROJECT - NOT FOR PRODUCTION**
+This is a demonstration/prototype website. Focus on functionality and learning, not production-grade features.
+
+## 📋 Development Guidelines
+
+### 1. Code Quality
+- Keep code **clean and super simple**
+- Use vanilla JavaScript only - NO frameworks
+- Self-explanatory variable names
+- Minimal dependencies
+- Clear, readable code structure
+
+### 2. Documentation
+- Document ALL changes in README.md
+- Keep README simple and short
+- Use bullet points for changes
+- Date each update clearly
+
+### 3. Design Reference
+- **Main reference**: https://icjob.sagirov.com/
+- Match PROMME website styles and layout
+- Keep industrial/professional theme
+- Use similar color schemes (purple/blue gradients)
+- Follow their card designs and spacing
+
+### 4. Responsive Design
+- **MUST BE MOBILE RESPONSIVE**
+- Test on: Desktop (1200px+), Tablet (768px), Mobile (375px)
+- Use CSS Grid and Flexbox
+- Mobile-first approach
+- Touch-friendly elements (min 44px)
+
+### 5. File Organization
+```
+/
+├── index.html, vacancies.html, parks.html  # Pages
+├── /css/                                   # Styles
+├── /js/                                    # Scripts
+├── /assets/                                # Images/icons
+└── README.md                               # Documentation
+```
+
+## 🚫 What NOT to Do
+
+- ❌ Don't add complex frameworks or libraries
+- ❌ Don't add backend functionality (keep frontend only)
+- ❌ Don't add authentication or real database
+- ❌ Don't over-engineer solutions
+- ❌ Don't write lengthy documentation
+- ❌ Don't ignore mobile responsiveness
+
+## ✅ What TO Do
+
+- ✅ Keep it simple and functional
+- ✅ Make it look like https://icjob.sagirov.com/
+- ✅ Test on mobile devices
+- ✅ Write self-explanatory code
+- ✅ Update README with each change
+- ✅ Use semantic HTML
+- ✅ Keep CSS organized and commented
+
+## 🎨 Style Guidelines
+
+### Colors (from PROMME)
+- Primary: Purple/Blue gradients (#667eea to #764ba2)
+- Secondary: Slate gray (#64748b)
+- Success: Green (#10b981)
+- Background: Light gray (#f8fafc)
+
+### Typography
+- Use system fonts for performance
+- Clear hierarchy (H1 > H2 > H3)
+- Readable line height (1.6)
+
+### Components
+- Card-based layouts
+- Smooth hover effects
+- Clear call-to-action buttons
+- Industrial/professional aesthetic
+
+## 📱 Mobile Breakpoints
+```css
+/* Desktop: 1200px+ */
+/* Tablet: 768px - 1199px */
+/* Mobile: < 768px */
+```
+
+## 🔄 Change Log Format
+Update README.md with each change:
+```
+## [Date] - Changes
+- What was changed
+- Why it was changed
+- What was added/removed
+```
+
+---
+
+**Remember**: Simple, clean, responsive, and similar to https://icjob.sagirov.com/
+
