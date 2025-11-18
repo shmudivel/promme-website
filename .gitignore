@@ -1,35 +1,71 @@
-# dependencies
-/node_modules
-/.pnp
-.pnp.js
+# PROMME Project .gitignore
+# ==========================
 
-# testing
-/coverage
-
-# next.js
-/.next/
-/out/
-
-# production
-/build
-
-# misc
+# macOS
 .DS_Store
-*.pem
+.AppleDouble
+.LSOverride
+Icon
+._*
+.Spotlight-V100
+.Trashes
 
-# debug
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+.directory
+
+# IDE / Editor
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+*~
+
+# Logs
+logs/
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# local env files
-.env*.local
+# Dependency directories
+node_modules/
+bower_components/
+
+# Optional: Original saved HTML (uncomment if you want to exclude it)
+# promme-original.html
+# saved_assets/
+
+# Build outputs (if you add a build process later)
+dist/
+build/
+*.min.js
+*.min.css
+
+# Environment variables
 .env
+.env.local
+.env.*.local
 
-# vercel
-.vercel
+# Testing
+coverage/
+.nyc_output/
 
-# typescript
-*.tsbuildinfo
-next-env.d.ts
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.bak
+
+# Package manager locks (optional, depending on your workflow)
+# package-lock.json
+# yarn.lock
 

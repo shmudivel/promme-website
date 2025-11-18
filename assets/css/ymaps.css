@@ -1,0 +1,222 @@
+/* Yandex Maps Custom Styles */
+/* ========================== */
+
+/* Map Marker Styles */
+.marker {
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.marker:hover {
+    transform: scale(1.1);
+}
+
+.marker img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+
+.marker_park {
+    position: relative;
+}
+
+.marker_edu {
+    position: relative;
+}
+
+/* Map Controls Custom Styles */
+.ymaps3x0--controls {
+    box-sizing: border-box;
+    display: flex;
+    padding: 12px;
+    pointer-events: none;
+    position: absolute;
+    z-index: 1000;
+}
+
+.ymaps3x0--control {
+    box-sizing: border-box;
+    pointer-events: all;
+}
+
+.ymaps3x0--control__background {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* Map Copyrights */
+.ymaps3x0--map-copyrights {
+    align-items: center;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: flex-end;
+    margin: 10px;
+    position: absolute;
+}
+
+.ymaps3x0--map-copyrights__container {
+    background-color: rgba(255, 255, 255, 0.75);
+    border-radius: 3px;
+    box-sizing: border-box;
+    color: #000;
+    font: 11px/14px Verdana, Arial, sans-serif;
+    padding: 0 4px 1px;
+    white-space: nowrap;
+}
+
+/* Marker Popup Styles */
+.ymaps3x0--popup-marker {
+    position: absolute;
+    pointer-events: none;
+    z-index: 1001;
+}
+
+.ymaps3x0--popup-marker_container {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 24px 0px rgba(95, 105, 131, 0.04),
+                0px 4px 12px 0px rgba(95, 105, 131, 0.1);
+    padding: 16px;
+    max-width: 300px;
+    pointer-events: all;
+}
+
+.ymaps3x0--popup-marker_container h4 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #34374a;
+}
+
+.ymaps3x0--popup-marker_container p {
+    font-size: 14px;
+    color: #6e7077;
+    margin-bottom: 4px;
+}
+
+/* Map Button Styles */
+.ymaps3x0--button {
+    background-image: none;
+    border: 0;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: inline-block;
+    margin: 0;
+    outline: 0;
+    padding: 0;
+    position: relative;
+    text-align: left;
+    user-select: none;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.ymaps3x0--control-button {
+    background-color: #fff;
+    border-radius: 8px;
+    box-sizing: border-box;
+    display: block;
+    padding: 8px;
+}
+
+.ymaps3x0--control-button:hover {
+    background-color: #f6f6f6;
+}
+
+/* Zoom Control */
+.ymaps3x0--zoom-control {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.ymaps3x0--zoom-control button {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: #4d4d4d;
+}
+
+/* Geolocation Control */
+.ymaps3--geolocation-control {
+    display: block;
+    width: 24px;
+    height: 24px;
+    background: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQiIGhlaWdodD0iMTQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTEuMzE1IDYuNzNjLS40ODIuMjI3LS4zOS45NC4xMzQgMS4wMzdsNC4wNi43MjQuNzIzIDQuMDZjLjA5OC41MjUuODEuNjE3IDEuMDM3LjEzNWw0LjY3NS05LjlhLjU1LjU1IDAgMCAwLS43MzItLjczbC05LjkgNC42NzRoLjAwMnoiIGZpbGw9IiM0ZDRkNGQiLz48L3N2Zz4K) center / 24px 24px no-repeat;
+}
+
+/* Rotate Tilt Control */
+.ymaps3--rotate-control {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    width: 56px;
+    height: 56px;
+    font-size: 19px;
+    cursor: pointer;
+    user-select: none;
+    color: #34374a;
+    border-radius: 50%;
+    background-color: #fff;
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2);
+}
+
+.ymaps3--rotate-control:hover {
+    color: #050d33;
+}
+
+/* Map Scale */
+.ymaps3x0--map-scale {
+    --label-color: #000;
+    --label-background-color: #fff;
+    --line-border-color: rgba(255, 255, 255, 0.9);
+    --line-background-color: #4d4d4d;
+    display: inline-block;
+}
+
+.ymaps3x0--map-scale_label {
+    text-wrap: nowrap;
+    background-color: var(--label-background-color);
+    border-radius: 4px;
+    color: var(--label-color);
+    font-size: 10px;
+    padding: 2px 4px;
+    text-align: center;
+}
+
+.ymaps3x0--map-scale_line {
+    align-items: center;
+    background-color: var(--label-color);
+    border: 2px solid var(--line-border-color);
+    border-radius: 4px;
+    box-sizing: border-box;
+    display: flex;
+    height: 6px;
+    justify-content: center;
+    width: 100%;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .ymaps3x0--popup-marker_container {
+        max-width: 250px;
+        padding: 12px;
+    }
+
+    .ymaps3x0--controls {
+        padding: 8px;
+    }
+
+    .ymaps3--rotate-control {
+        width: 48px;
+        height: 48px;
+    }
+}
+
