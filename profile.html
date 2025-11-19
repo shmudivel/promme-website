@@ -1079,17 +1079,17 @@
         }
         
         function selectVideo(variant) {
-            // Use local video file for job seeker profiles
-            const videos = {
-                1: 'аватар 01.mp4',
-                2: 'аватар 01.mp4'
-            };
+            // Get Supabase URL from config
+            const supabaseUrl = window.AppConfig?.SUPABASE_URL || 'https://mskikoksudxjhpnpsoal.supabase.co';
+            
+            // Use video from Supabase Storage
+            const videoUrl = `${supabaseUrl}/storage/v1/object/public/videos/avatar-job-seeker-default.mp4`;
             
             const userData = JSON.parse(localStorage.getItem('prommeAuthUser') || '{}');
-            userData.profileVideo = videos[variant];
+            userData.profileVideo = videoUrl;
             localStorage.setItem('prommeAuthUser', JSON.stringify(userData));
             
-            showProfileVideo(videos[variant]);
+            showProfileVideo(videoUrl);
             
             const chat = document.getElementById('aiFollowUpChat');
             if (chat) {
