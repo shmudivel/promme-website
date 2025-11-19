@@ -8,13 +8,6 @@
   # Build command (none needed for static site)
   command = ""
 
-# Redirect rules for SPA-like behavior
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-  conditions = {Role = ["admin"]}
-
 # Security headers
 [[headers]]
   for = "/*"
@@ -51,16 +44,9 @@
 # API_BASE_URL = "https://api.promme.ru/api"
 # YANDEX_MAPS_API_KEY = "your_key_here"
 
-# Custom error pages
+# 404 page - show index.html for not found pages
 [[redirects]]
-  from = "/404"
+  from = "/*"
   to = "/index.html"
   status = 404
-
-# Force HTTPS
-[[redirects]]
-  from = "http://*"
-  to = "https://:splat"
-  status = 301
-  force = true
 
