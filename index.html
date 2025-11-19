@@ -721,8 +721,14 @@
     <!-- External JavaScript -->
     <script src="https://api-maps.yandex.ru/v3/?apikey=YOUR_API_KEY&lang=ru_RU" defer></script>
     
+    <!-- Supabase Client Library (for database & auth) -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
     <!-- Load configuration first -->
     <script src="./assets/js/config.js"></script>
+    
+    <!-- Load Supabase client (if using Supabase) -->
+    <script src="./assets/js/supabase-client.js"></script>
     
     <!-- Load API services -->
     <script src="./assets/js/api-service.js"></script>
@@ -730,6 +736,7 @@
     <script src="./assets/js/auth-api.js"></script>
     <script src="./assets/js/profile-api.js"></script>
     <script src="./assets/js/vacancies-api.js"></script>
+    <script src="./assets/js/chat-api.js"></script>
     
     <!-- Load main application scripts -->
     <script src="./assets/js/main.js" defer></script>
