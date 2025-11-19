@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Личный кабинет - PROMME</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/auth.css">
+    <style>
+        .profile-page {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #FF8C42 0%, #FF6B35 50%, #E94397 100%);
+            padding: 40px 20px;
+        }
+
+        .profile-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .profile-header {
+            background: white;
+            border-radius: 24px;
+            padding: 32px;
+            margin-bottom: 24px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-header-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+        }
+
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #FF8C42 0%, #FF6B35 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: white;
+            font-weight: 700;
+        }
+
+        .profile-info {
+            flex: 1;
+            margin-left: 24px;
+        }
+
+        .profile-name {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--black);
+            margin: 0 0 8px 0;
+        }
+
+        .profile-type {
+            display: inline-block;
+            padding: 6px 16px;
+            background: linear-gradient(135deg, #FF8C42 0%, #FF6B35 100%);
+            color: white;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .profile-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-action {
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .btn-edit {
+            background: linear-gradient(135deg, #FF8C42 0%, #FF6B35 100%);
+            color: white;
+        }
+
+        .btn-edit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+        }
+
+        .btn-back {
+            background: #F5F5F5;
+            color: var(--text-color);
+        }
+
+        .btn-back:hover {
+            background: #E0E0E0;
+        }
+
+        .profile-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .profile-card {
+            background: white;
+            border-radius: 24px;
+            padding: 32px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-card-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--black);
+            margin: 0 0 24px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .profile-card-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #FF8C42 0%, #FF6B35 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .profile-field {
+            margin-bottom: 20px;
+        }
+
+        .profile-field-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        .profile-field-value {
+            font-size: 16px;
+            color: var(--text-color);
+            padding: 12px;
+            background: #F8F8F8;
+            border-radius: 8px;
+        }
+
+        .profile-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #F8F8F8 0%, #F0F0F0 100%);
+            padding: 20px;
+            border-radius: 16px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin: 0 0 8px 0;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* AI Chat Button */
+        .ai-chat-btn-profile {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #8B5FD8 0%, #FF6B35 100%);
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 8px 24px rgba(139, 95, 216, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+        .ai-chat-btn-profile:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(139, 95, 216, 0.5);
+        }
+
+        .ai-chat-btn-profile:active {
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .profile-content {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-header-top {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .profile-info {
+                margin-left: 0;
+                margin-top: 16px;
+            }
+
+            .profile-actions {
+                width: 100%;
+                margin-top: 16px;
+            }
+
+            .btn-action {
+                flex: 1;
+            }
+
+            .profile-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .ai-chat-btn-profile {
+                width: 56px;
+                height: 56px;
+                bottom: 20px;
+                right: 20px;
+            }
+
+            /* Vertical video for mobile (TikTok style) - container fits video */
+            .profile-video {
+                aspect-ratio: 9/16 !important;
+                max-height: 80vh;
+                width: 100% !important;
+                max-width: 100%;
+            }
+
+            .profile-video-container {
+                background: transparent;
+                box-shadow: none;
+            }
+
+            .profile-video video {
+                position: absolute !important;
+                top: 0;
+                left: 0;
+                width: 100% !important;
+                height: 100% !important;
+                object-fit: cover !important;
+                border-radius: 16px;
+            }
+        }
+
+        /* Profile Video Section */
+        .profile-video-container {
+            margin-bottom: 24px;
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-video {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-video video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .profile-video-placeholder {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+            padding: 40px;
+        }
+
+        .profile-video-badge {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: linear-gradient(135deg, #8B5FD8 0%, #FF6B35 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            z-index: 10;
+        }
+
+        /* AI Chat centered on mobile */
+        @media (max-width: 480px) {
+            #aiFollowUpChat {
+                bottom: 50% !important;
+                right: 50% !important;
+                transform: translate(50%, 50%) !important;
+                width: calc(100vw - 32px) !important;
+                max-width: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-page">
+        <div class="profile-container">
+            <!-- Profile Video (AI Generated) -->
+            <div class="profile-video-container" id="profileVideoContainer" style="display: none;">
+                <div class="profile-video" id="profileVideo">
+                    <div class="profile-video-placeholder">
+                        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity: 0.4; margin-bottom: 16px;">
+                            <path d="M15 10L19.553 7.724C19.7054 7.64806 19.8744 7.61378 20.0436 7.62471C20.2128 7.63564 20.376 7.69138 20.5171 7.78631C20.6582 7.88124 20.7721 8.01204 20.8475 8.16548C20.9229 8.31891 20.9572 8.48972 20.947 8.661L20.947 15.339C20.9572 15.5103 20.9229 15.6811 20.8475 15.8345C20.7721 15.988 20.6582 16.1188 20.5171 16.2137C20.376 16.3086 20.2128 16.3644 20.0436 16.3753C19.8744 16.3862 19.7054 16.3519 19.553 16.276L15 14V10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <rect x="3" y="7" width="12" height="10" rx="2" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                        <p style="margin: 0; font-size: 14px;">Видео профиля не создано</p>
+                    </div>
+                    <div class="profile-video-badge">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="currentColor"/>
+                        </svg>
+                        AI Generated
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Header -->
+            <div class="profile-header">
+                <div class="profile-header-top">
+                    <div style="display: flex; align-items: center;">
+                        <div class="profile-avatar" id="profileAvatar">
+                            <!-- Will be filled with initials -->
+                        </div>
+                        <div class="profile-info">
+                            <h1 class="profile-name" id="profileDisplayName">Загрузка...</h1>
+                            <span class="profile-type" id="profileTypeLabel">Соискатель</span>
+                        </div>
+                    </div>
+                    <div class="profile-actions">
+                        <button class="btn-action btn-back" onclick="window.location.href='index.html'">
+                            ← На главную
+                        </button>
+                        <button class="btn-action btn-edit" id="editProfileBtn">
+                            Редактировать
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Profile Stats -->
+                <div class="profile-stats">
+                    <div class="stat-card">
+                        <div class="stat-value">100%</div>
+                        <div class="stat-label">Профиль заполнен</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="experienceYears">0</div>
+                        <div class="stat-label">Лет опыта</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">✓</div>
+                        <div class="stat-label">Подтвержден AI</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Content -->
+            <div class="profile-content">
+                <!-- Personal Information -->
+                <div class="profile-card">
+                    <h2 class="profile-card-title">
+                        <div class="profile-card-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        Личная информация
+                    </h2>
+                    <div class="profile-field">
+                        <div class="profile-field-label">Email</div>
+                        <div class="profile-field-value" id="fieldEmail">-</div>
+                    </div>
+                    <div class="profile-field">
+                        <div class="profile-field-label">Телефон</div>
+                        <div class="profile-field-value" id="fieldPhone">-</div>
+                    </div>
+                    <div class="profile-field">
+                        <div class="profile-field-label">Должность</div>
+                        <div class="profile-field-value" id="fieldPosition">-</div>
+                    </div>
+                    <div class="profile-field">
+                        <div class="profile-field-label">Опыт работы</div>
+                        <div class="profile-field-value" id="fieldExperience">-</div>
+                    </div>
+                </div>
+
+                <!-- Education & Skills -->
+                <div class="profile-card">
+                    <h2 class="profile-card-title">
+                        <div class="profile-card-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 14L21 9L12 4L3 9L12 14ZM12 14L18.16 10.53C18.71 11.66 19 12.92 19 14.24C19 15.56 18.71 16.82 18.16 17.95M12 14L5.84 10.53C5.29 11.66 5 12.92 5 14.24C5 15.56 5.29 16.82 5.84 17.95M12 14V22.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        Образование и навыки
+                    </h2>
+                    <div class="profile-field">
+                        <div class="profile-field-label">Образование</div>
+                        <div class="profile-field-value" id="fieldEducation">-</div>
+                    </div>
+                    <div class="profile-field">
+                        <div class="profile-field-label">Навыки</div>
+                        <div class="profile-field-value" id="fieldSkills">-</div>
+                    </div>
+                </div>
+
+                <!-- About -->
+                <div class="profile-card" style="grid-column: 1 / -1;">
+                    <h2 class="profile-card-title">
+                        <div class="profile-card-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 12H15M9 16H15M17 21H7C5.89543 21 5 20.1046 5 19V5C5 3.89543 5.89543 3 7 3H12.5858C12.851 3 13.1054 3.10536 13.2929 3.29289L18.7071 8.70711C18.8946 8.89464 19 9.149 19 9.41421V19C19 20.1046 18.1046 21 17 21Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        О себе
+                    </h2>
+                    <div class="profile-field">
+                        <div class="profile-field-value" id="fieldAbout">-</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI Chat Button (Always visible) -->
+    <button class="ai-chat-btn-profile" id="aiChatBtnProfile" aria-label="AI Помощник">
+        <svg width="32" height="32" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 12C8 9.79086 9.79086 8 12 8H24C26.2091 8 28 9.79086 28 12V24C28 26.2091 26.2091 28 24 28H16L10 34V28H12C9.79086 28 8 26.2091 8 24V12Z" fill="white" opacity="0.9"/>
+            <path d="M20 18C20 15.7909 21.7909 14 24 14H36C38.2091 14 40 15.7909 40 18V30C40 32.2091 38.2091 34 36 34H28L22 40V34H24C21.7909 34 20 32.2091 20 30V18Z" fill="white"/>
+            <text x="30" y="27" text-anchor="middle" fill="#8B5FD8" font-size="11" font-weight="bold" font-family="Arial, sans-serif">AI</text>
+        </svg>
+    </button>
+
+    <script src="assets/js/main.js"></script>
+    <script>
+        // Load and display profile data
+        document.addEventListener('DOMContentLoaded', function() {
+            const userData = JSON.parse(localStorage.getItem('prommeAuthUser') || '{}');
+            const profileData = userData.profileData || {};
+            
+            console.log('Loading profile:', profileData);
+            
+            // Display name and avatar
+            const name = profileData.name || userData.name || 'Пользователь';
+            document.getElementById('profileDisplayName').textContent = name;
+            
+            // Get initials
+            const initials = name.split(' ').map(word => word[0]).join('').substring(0, 2).toUpperCase();
+            document.getElementById('profileAvatar').textContent = initials;
+            
+            // Profile type
+            const profileTypeLabel = userData.profileTypeLabel || 'Соискатель';
+            document.getElementById('profileTypeLabel').textContent = profileTypeLabel;
+            
+            // Fill fields
+            document.getElementById('fieldEmail').textContent = profileData.email || userData.email || '-';
+            document.getElementById('fieldPhone').textContent = profileData.phone || '-';
+            document.getElementById('fieldPosition').textContent = profileData.position || '-';
+            document.getElementById('fieldExperience').textContent = profileData.experience ? profileData.experience + ' лет' : '-';
+            document.getElementById('fieldEducation').textContent = profileData.education || '-';
+            document.getElementById('fieldSkills').textContent = profileData.skills || '-';
+            document.getElementById('fieldAbout').textContent = profileData.about || '-';
+            
+            // Update experience stat
+            document.getElementById('experienceYears').textContent = profileData.experience || '0';
+            
+            // Edit button
+            document.getElementById('editProfileBtn').addEventListener('click', function() {
+                // For now, go back to home and trigger AI chat
+                window.location.href = 'index.html?edit=profile';
+            });
+            
+            // Check if profile has video
+            const hasVideo = userData.profileVideo || false;
+            if (hasVideo) {
+                showProfileVideo(userData.profileVideo);
+            }
+            
+            // Check if this is first visit after profile save
+            const justSaved = sessionStorage.getItem('profileJustSaved');
+            if (justSaved === 'true') {
+                sessionStorage.removeItem('profileJustSaved');
+                
+                // Check if user already has video
+                if (!hasVideo) {
+                    // Open AI chat to offer video generation after delay
+                    setTimeout(function() {
+                        openVideoGenerationChat();
+                    }, 1000);
+                } else {
+                    // Open regular follow-up chat
+                    setTimeout(function() {
+                        openFollowUpChat();
+                    }, 1000);
+                }
+            }
+            
+            // AI Chat Button handler
+            const aiChatBtn = document.getElementById('aiChatBtnProfile');
+            if (aiChatBtn) {
+                aiChatBtn.addEventListener('click', function() {
+                    openFollowUpChat();
+                });
+            }
+        });
+        
+        // Open AI chat with follow-up questions
+        function openFollowUpChat() {
+            // Check if chat already exists
+            const existingChat = document.getElementById('aiFollowUpChat');
+            if (existingChat) {
+                return; // Don't open multiple chats
+            }
+            
+            // Hide AI button when chat opens
+            const aiBtn = document.getElementById('aiChatBtnProfile');
+            if (aiBtn) {
+                aiBtn.style.display = 'none';
+            }
+            
+            // Create a simple notification/chat overlay
+            const chatOverlay = document.createElement('div');
+            chatOverlay.id = 'aiFollowUpChat';
+            chatOverlay.style.cssText = `
+                position: fixed;
+                bottom: 24px;
+                right: 24px;
+                width: 400px;
+                max-width: calc(100vw - 48px);
+                background: white;
+                border-radius: 20px;
+                box-shadow: 0 12px 48px rgba(0, 0, 0, 0.2);
+                padding: 24px;
+                z-index: 10000;
+                animation: slideUp 0.3s ease;
+            `;
+            
+            chatOverlay.innerHTML = `
+                <style>
+                    @keyframes slideUp {
+                        from { transform: translateY(100px); opacity: 0; }
+                        to { transform: translateY(0); opacity: 1; }
+                    }
+                </style>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #8B5FD8 0%, #FF6B35 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 18px;">AI</div>
+                        <div>
+                            <div style="font-weight: 700; color: #1a1a1a; font-size: 16px;">PROMME AI Ассистент</div>
+                            <div style="font-size: 12px; color: #666;">Онлайн</div>
+                        </div>
+                    </div>
+                    <button onclick="closeAIChat()" style="background: none; border: none; font-size: 28px; cursor: pointer; color: #999; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: all 0.2s ease;">×</button>
+                </div>
+                
+                <div style="background: linear-gradient(135deg, #F8F8F8 0%, #F0F0F0 100%); border-radius: 12px; padding: 20px; margin-bottom: 16px;">
+                    <p style="margin: 0 0 12px 0; color: #1a1a1a; font-size: 15px; font-weight: 600;">
+                        🎉 Отлично! Ваш профиль сохранён.
+                    </p>
+                    <p style="margin: 0 0 16px 0; color: #333; font-size: 14px;">
+                        Чем ещё могу помочь?
+                    </p>
+                    <ul style="margin: 0; padding-left: 20px; color: #555; font-size: 14px; line-height: 1.6;">
+                        <li style="margin-bottom: 8px;">✨ Помочь найти подходящие вакансии</li>
+                        <li style="margin-bottom: 8px;">📝 Оптимизировать ваш профиль</li>
+                        <li style="margin-bottom: 8px;">💼 Подготовиться к собеседованию</li>
+                        <li>🔔 Настроить уведомления о вакансиях</li>
+                    </ul>
+                </div>
+                
+                <div style="display: flex; gap: 8px;">
+                    <button onclick="showVacancies()" style="flex: 1; padding: 14px; background: linear-gradient(135deg, #FF8C42 0%, #FF6B35 100%); color: white; border: none; border-radius: 12px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; font-size: 14px;">
+                        Найти вакансии
+                    </button>
+                    <button onclick="closeAIChat()" style="flex: 1; padding: 14px; background: #F5F5F5; color: #333; border: none; border-radius: 12px; font-weight: 600; cursor: pointer; font-size: 14px; transition: all 0.3s ease;">
+                        Позже
+                    </button>
+                </div>
+            `;
+            
+            document.body.appendChild(chatOverlay);
+        }
+        
+        // Close AI chat and show button again
+        function closeAIChat() {
+            const chat = document.getElementById('aiFollowUpChat');
+            if (chat) {
+                chat.remove();
+            }
+            
+            // Show AI button again
+            const aiBtn = document.getElementById('aiChatBtnProfile');
+            if (aiBtn) {
+                aiBtn.style.display = 'flex';
+            }
+        }
+        
+        // Show vacancies list
+        function showVacancies() {
+            const chat = document.getElementById('aiFollowUpChat');
+            if (!chat) return;
+            
+            // Get user profile data for matching
+            const userData = JSON.parse(localStorage.getItem('prommeAuthUser') || '{}');
+            const profileData = userData.profileData || {};
+            
+            // Sample vacancies (would come from API in production)
+            const vacancies = [
+                {
+                    id: 'welder-5',
+                    title: 'Сварщик 5 разряда',
+                    company: 'ООО "Уралмашзавод"',
+                    location: 'Екатеринбург',
+                    salary: '80 000 - 120 000 ₽',
+                    match: 95,
+                    logo: '🏭'
+                },
+                {
+                    id: 'welder-4',
+                    title: 'Сварщик 4 разряда',
+                    company: 'АО "ЧТПЗ"',
+                    location: 'Челябинск',
+                    salary: '70 000 - 100 000 ₽',
+                    match: 88,
+                    logo: '⚙️'
+                },
+                {
+                    id: 'engineer',
+                    title: 'Инженер-технолог',
+                    company: 'ООО "ПромТех"',
+                    location: 'Екатеринбург',
+                    salary: '90 000 - 150 000 ₽',
+                    match: 75,
+                    logo: '🔧'
+                }
+            ];
+            
+            // Build vacancies list HTML
+            const vacanciesHTML = vacancies.map(vacancy => `
+                <div style="background: white; border: 2px solid #F0F0F0; border-radius: 16px; padding: 16px; margin-bottom: 12px; transition: all 0.3s ease; cursor: pointer;" onmouseover="this.style.borderColor='#FF6B35'; this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='#F0F0F0'; this.style.transform='translateY(0)'">
+                    <div style="display: flex; gap: 12px; margin-bottom: 12px;">
+                        <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #F8F8F8 0%, #F0F0F0 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0;">
+                            ${vacancy.logo}
+                        </div>
+                        <div style="flex: 1; min-width: 0;">
+                            <div style="font-weight: 700; font-size: 15px; color: #1a1a1a; margin-bottom: 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                ${vacancy.title}
+                            </div>
+                            <div style="font-size: 13px; color: #666; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                ${vacancy.company}
+                            </div>
+                        </div>
+                        <div style="background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%); padding: 4px 12px; border-radius: 12px; height: fit-content; white-space: nowrap;">
+                            <span style="color: #2E7D32; font-weight: 700; font-size: 12px;">${vacancy.match}%</span>
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 12px; flex-wrap: wrap;">
+                        <div style="display: flex; align-items: center; gap: 6px; font-size: 13px; color: #666;">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M21 10C21 17 12 23 12 23C12 23 3 17 3 10C3 7.61305 3.94821 5.32387 5.63604 3.63604C7.32387 1.94821 9.61305 1 12 1C14.3869 1 16.6761 1.94821 18.364 3.63604C20.0518 5.32387 21 7.61305 21 10Z" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                            ${vacancy.location}
+                        </div>
+                        <div style="font-weight: 700; font-size: 14px; color: #FF6B35;">
+                            ${vacancy.salary}
+                        </div>
+                    </div>
+                    
+                    <button onclick="window.location.href='vacancy.html?id=${vacancy.id}'" style="width: 100%; padding: 10px; background: linear-gradient(135deg, #FF8C42 0%, #FF6B35 100%); color: white; border: none; border-radius: 10px; font-weight: 600; font-size: 13px; cursor: pointer; transition: all 0.3s ease;">
+                        Подробнее →
+                    </button>
+                </div>
+            `).join('');
+            
+            // Update chat content
+            chat.innerHTML = `
+                <style>
+                    @keyframes slideUp {
+                        from { transform: translateY(100px); opacity: 0; }
+                        to { transform: translateY(0); opacity: 1; }
+                    }
+                </style>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #8B5FD8 0%, #FF6B35 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 18px;">AI</div>
+                        <div>
+                            <div style="font-weight: 700; color: #1a1a1a; font-size: 16px;">Подходящие вакансии</div>
+                            <div style="font-size: 12px; color: #666;">Найдено ${vacancies.length} вакансий</div>
+                        </div>
+                    </div>
+                    <button onclick="closeAIChat()" style="background: none; border: none; font-size: 28px; cursor: pointer; color: #999; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: all 0.2s ease;">×</button>
+                </div>
+                
+                <div style="max-height: 500px; overflow-y: auto; padding-right: 4px;">
+                    ${vacanciesHTML}
+                </div>
+                
+                <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid #F0F0F0;">
+                    <button onclick="closeAIChat()" style="width: 100%; padding: 12px; background: #F5F5F5; color: #333; border: none; border-radius: 12px; font-weight: 600; cursor: pointer; font-size: 14px; transition: all 0.3s ease;">
+                        Закрыть
+                    </button>
+                </div>
+            `;
+        }
+        
+        // Show profile video
+        function showProfileVideo(videoUrl) {
+            const videoContainer = document.getElementById('profileVideoContainer');
+            const videoElement = document.getElementById('profileVideo');
+            
+            if (videoContainer && videoElement) {
+                videoContainer.style.display = 'block';
+                videoElement.innerHTML = `
+                    <video controls autoplay muted loop>
+                        <source src="${videoUrl}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="profile-video-badge">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="currentColor"/>
+                        </svg>
+                        AI Generated
+                    </div>
+                `;
+            }
+        }
+        
+        // Open video generation chat
+        function openVideoGenerationChat() {
+            const existingChat = document.getElementById('aiFollowUpChat');
+            if (existingChat) return;
+            
+            const aiBtn = document.getElementById('aiChatBtnProfile');
+            if (aiBtn) aiBtn.style.display = 'none';
+            
+            const userData = JSON.parse(localStorage.getItem('prommeAuthUser') || '{}');
+            const profileType = userData.profileType || 'job-seeker';
+            
+            let videoDescription = 'вводное видео о вас';
+            if (profileType === 'company') {
+                videoDescription = 'видео-презентацию вашей компании';
+            } else if (profileType === 'facilitator') {
+                videoDescription = 'видео о вашем учебном заведении';
+            }
+            
+            const chatOverlay = document.createElement('div');
+            chatOverlay.id = 'aiFollowUpChat';
+            chatOverlay.style.cssText = `
+                position: fixed;
+                bottom: 24px;
+                right: 24px;
+                width: 400px;
+                max-width: calc(100vw - 48px);
+                background: white;
+                border-radius: 20px;
+                box-shadow: 0 12px 48px rgba(0, 0, 0, 0.2);
+                padding: 24px;
+                z-index: 10000;
+                animation: slideUp 0.3s ease;
+            `;
+            
+            chatOverlay.innerHTML = `
+                <style>
+                    @keyframes slideUp {
+                        from { transform: translateY(100px); opacity: 0; }
+                        to { transform: translateY(0); opacity: 1; }
+                    }
+                </style>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #8B5FD8 0%, #FF6B35 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 18px;">AI</div>
+                        <div>
+                            <div style="font-weight: 700; color: #1a1a1a; font-size: 16px;">PROMME AI Ассистент</div>
+                            <div style="font-size: 12px; color: #666;">Создание видео-профиля</div>
+                        </div>
+                    </div>
+                    <button onclick="closeAIChat()" style="background: none; border: none; font-size: 28px; cursor: pointer; color: #999;">×</button>
+                </div>
+                
+                <div style="background: linear-gradient(135deg, #F8F8F8 0%, #F0F0F0 100%); border-radius: 12px; padding: 20px; margin-bottom: 16px;">
+                    <p style="margin: 0 0 12px 0; color: #1a1a1a; font-size: 15px; font-weight: 600;">
+                        🎬 Создать видео-аватар?
+                    </p>
+                    <p style="margin: 0; color: #333; font-size: 14px; line-height: 1.6;">
+                        Я могу создать ${videoDescription} с помощью AI! Это сделает ваш профиль более живым и привлекательным.
+                    </p>
+                </div>
+                
+                <div style="display: flex; gap: 8px;">
+                    <button onclick="startVideoGeneration()" style="flex: 1; padding: 14px; background: linear-gradient(135deg, #FF8C42 0%, #FF6B35 100%); color: white; border: none; border-radius: 12px; font-weight: 600; cursor: pointer;">
+                        🎥 Да, создать
+                    </button>
+                    <button onclick="closeAIChat()" style="flex: 1; padding: 14px; background: #F5F5F5; color: #333; border: none; border-radius: 12px; font-weight: 600; cursor: pointer;">
+                        Позже
+                    </button>
+                </div>
+            `;
+            
+            document.body.appendChild(chatOverlay);
+        }
+        
+        // Start video generation
+        function startVideoGeneration() {
+            const chat = document.getElementById('aiFollowUpChat');
+            if (!chat) return;
+            
+            chat.innerHTML = `
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #8B5FD8 0%, #FF6B35 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 18px;">AI</div>
+                        <div>
+                            <div style="font-weight: 700; color: #1a1a1a; font-size: 16px;">Загрузите фото</div>
+                            <div style="font-size: 12px; color: #666;">Для аватара</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="border: 2px dashed #E0E0E0; border-radius: 12px; padding: 32px; text-align: center; cursor: pointer; margin-bottom: 16px;" onclick="document.getElementById('avatarPhoto').click()">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" style="margin-bottom: 12px; opacity: 0.5;">
+                        <path d="M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V15M17 8L12 3M12 3L7 8M12 3V15" stroke="#FF6B35" stroke-width="2"/>
+                    </svg>
+                    <p style="margin: 0; font-weight: 600;">Загрузите фото</p>
+                    <p style="margin: 8px 0 0 0; font-size: 12px; color: #666;">JPG, PNG до 10MB</p>
+                    <input type="file" id="avatarPhoto" accept="image/*" style="display: none;" onchange="handlePhotoUpload(event)">
+                </div>
+                
+                <div style="background: #FFF8E1; border-radius: 12px; padding: 12px; margin-bottom: 16px;">
+                    <p style="margin: 0; font-size: 13px; color: #F57C00;">💡 Можете добавить еще фото для динамичного видео</p>
+                </div>
+                
+                <div style="border: 2px dashed #E0E0E0; border-radius: 12px; padding: 16px; text-align: center; cursor: pointer;" onclick="document.getElementById('extraPhotos').click()">
+                    <p style="margin: 0; font-size: 13px; font-weight: 600;">+ Доп. фото</p>
+                    <input type="file" id="extraPhotos" accept="image/*" multiple style="display: none;" onchange="handleExtraPhotos(event)">
+                </div>
+            `;
+        }
+        
+        function handlePhotoUpload(e) {
+            if (e.target.files[0]) {
+                showVideoProcessing();
+            }
+        }
+        
+        function handleExtraPhotos(e) {
+            alert(`✅ Загружено ${e.target.files.length} фото!`);
+        }
+        
+        function showVideoProcessing() {
+            const chat = document.getElementById('aiFollowUpChat');
+            if (!chat) return;
+            
+            chat.innerHTML = `
+                <div style="text-align: center; padding: 40px 20px;">
+                    <div style="width: 80px; height: 80px; margin: 0 auto 24px; border: 4px solid #F0F0F0; border-top-color: #FF6B35; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+                    <p style="margin: 0; font-weight: 600;" id="status">Анализируем...</p>
+                    <p style="margin: 8px 0 0 0; color: #666;" id="progress">0%</p>
+                </div>
+                <style>@keyframes spin { to { transform: rotate(360deg); } }</style>
+            `;
+            
+            let progress = 0;
+            const statuses = ['Анализируем...', 'Создаём аватар...', 'Генерируем видео...', 'Рендерим...'];
+            const interval = setInterval(() => {
+                progress += 15;
+                if (progress > 100) progress = 100;
+                document.getElementById('progress').textContent = progress + '%';
+                document.getElementById('status').textContent = statuses[Math.floor(progress / 30)];
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    setTimeout(showVideoSelection, 500);
+                }
+            }, 300);
+        }
+        
+        function showVideoSelection() {
+            const chat = document.getElementById('aiFollowUpChat');
+            if (!chat) return;
+            
+            chat.innerHTML = `
+                <div style="display: flex; justify-content: space-between; margin-bottom: 16px;">
+                    <div>
+                        <div style="font-weight: 700;">Выберите видео</div>
+                        <div style="font-size: 12px; color: #666;">2 варианта готовы</div>
+                    </div>
+                </div>
+                
+                <div style="display: grid; gap: 12px;">
+                    <div style="border: 3px solid #FF6B35; border-radius: 12px; overflow: hidden; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 12px rgba(255, 107, 53, 0.2);" onclick="selectVideo(1)" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+                        <div style="aspect-ratio: 16/9; background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; position: relative;">
+                            <div style="text-align: center;">
+                                <div style="font-size: 48px; margin-bottom: 8px;">🎬</div>
+                                <div style="font-size: 16px;">AI Аватар</div>
+                            </div>
+                            <div style="position: absolute; top: 12px; right: 12px; background: linear-gradient(135deg, #4ade80, #22c55e); padding: 6px 12px; border-radius: 20px; font-size: 11px; font-weight: 700;">
+                                ✓ Рекомендуем
+                            </div>
+                        </div>
+                        <div style="padding: 16px; background: white;">
+                            <p style="margin: 0 0 4px 0; font-weight: 700; font-size: 15px; color: #1a1a1a;">Профессиональное видео</p>
+                            <p style="margin: 0; font-size: 13px; color: #666; line-height: 1.4;">Видео-представление с AI аватаром для профиля соискателя</p>
+                        </div>
+                    </div>
+                    
+                    <div style="border: 2px solid #E0E0E0; border-radius: 12px; overflow: hidden; cursor: pointer; transition: all 0.3s ease;" onclick="selectVideo(2)" onmouseover="this.style.borderColor='#FF6B35'; this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='#E0E0E0'; this.style.transform='translateY(0)'">
+                        <div style="aspect-ratio: 16/9; background: linear-gradient(135deg, #2a2a2a 0%, #3a3a3a 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700;">
+                            <div style="text-align: center;">
+                                <div style="font-size: 48px; margin-bottom: 8px;">🎥</div>
+                                <div style="font-size: 16px;">AI Аватар</div>
+                            </div>
+                        </div>
+                        <div style="padding: 16px; background: white;">
+                            <p style="margin: 0 0 4px 0; font-weight: 700; font-size: 15px; color: #1a1a1a;">Альтернативный вариант</p>
+                            <p style="margin: 0; font-size: 13px; color: #666; line-height: 1.4;">Тот же AI аватар, можете выбрать для просмотра</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <p style="margin: 16px 0 0 0; text-align: center; font-size: 12px; color: #999;">
+                    💡 Оба варианта используют ваше загруженное фото
+                </p>
+            `;
+        }
+        
+        function selectVideo(variant) {
+            // Use local video file for job seeker profiles
+            const videos = {
+                1: 'аватар 01.mp4',
+                2: 'аватар 01.mp4'
+            };
+            
+            const userData = JSON.parse(localStorage.getItem('prommeAuthUser') || '{}');
+            userData.profileVideo = videos[variant];
+            localStorage.setItem('prommeAuthUser', JSON.stringify(userData));
+            
+            showProfileVideo(videos[variant]);
+            
+            const chat = document.getElementById('aiFollowUpChat');
+            if (chat) {
+                chat.innerHTML = `
+                    <div style="text-align: center; padding: 40px;">
+                        <div style="width: 80px; height: 80px; margin: 0 auto 24px; background: linear-gradient(135deg, #4ade80, #22c55e); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 40px;">✓</div>
+                        <p style="margin: 0; font-weight: 700; font-size: 18px;">Видео добавлено!</p>
+                        <p style="margin: 8px 0 0 0; color: #666;">Профиль обновлён</p>
+                    </div>
+                `;
+                setTimeout(closeAIChat, 2000);
+            }
+        }
+    </script>
+</body>
+</html>
+
