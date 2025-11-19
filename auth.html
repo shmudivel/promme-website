@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Вход | PROMME - Портал для поиска работы</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.ico">
+    
+    <!-- External CSS -->
+    <link rel="stylesheet" href="./assets/css/auth.css">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <svg class="auth-logo" width="120" height="22" viewBox="0 0 186 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0.61 32V0.949997H12.715C19.555 0.949997 23.74 5.045 23.74 10.895C23.74 17.78 19.285 21.515 11.905 21.515H5.92V32H0.61ZM5.92 17.285H12.4C16.315 17.285 18.385 15.035 18.385 11.12C18.385 7.34 16.225 5.27 12.445 5.27H5.92V17.285ZM25.3424 32V0.949997H39.5174C45.9524 0.949997 49.6874 3.875 49.6874 9.23C49.6874 13.1 47.7074 15.665 43.7474 16.97C47.4824 17.69 49.0574 19.58 49.1924 23.045L49.4174 28.67C49.4624 30.065 49.7774 31.19 50.2724 32H44.9174C44.3324 31.1 44.1524 30.155 44.1074 28.67L43.9724 23.945C43.8374 20.705 42.5774 19.085 39.0224 19.085H30.6524V32H25.3424ZM30.6524 15.08H39.2024C42.3974 15.08 44.2424 13.235 44.2424 9.815C44.2424 6.62 42.3974 5 38.6624 5H30.6524V15.08ZM65.1903 32.315C56.4153 32.315 50.9703 26.15 50.9703 16.565C50.9703 6.98 56.7303 0.634999 65.5053 0.634999C73.9203 0.634999 79.6803 6.44 79.6803 16.295C79.6803 25.925 73.5603 32.315 65.1903 32.315ZM65.2803 27.995C70.9953 27.995 74.0553 23.675 74.0553 16.34C74.0553 9.095 70.9053 4.955 65.3253 4.955C59.9253 4.955 56.5953 9.185 56.5953 16.34C56.5953 23.585 59.7453 27.995 65.2803 27.995ZM81.487 32V0.949997H88.867L94.447 16.97C95.932 21.335 97.057 24.8 97.732 27.365C98.407 24.89 99.487 21.47 100.927 17.195L106.462 0.949997H113.752V32H108.622V19.85C108.622 14.585 108.712 10.13 108.847 6.485C108.262 8.555 107.182 11.885 105.607 16.475L100.207 32H94.987L89.227 15.98C88.192 13.055 87.202 9.905 86.212 6.53C86.347 10.13 86.437 14.585 86.437 19.94V32H81.487ZM116.766 32V0.949997H124.146L129.726 16.97C131.211 21.335 132.336 24.8 133.011 27.365C133.686 24.89 134.766 21.47 136.206 17.195L141.741 0.949997H149.031V32H143.901V19.85C143.901 14.585 143.991 10.13 144.126 6.485C143.541 8.555 142.461 11.885 140.886 16.475L135.486 32H130.266L124.506 15.98C123.471 13.055 122.481 9.905 121.491 6.53C121.626 10.13 121.716 14.585 121.716 19.94V32H116.766ZM152.046 32V0.949997H173.556V5.27H157.356V14H170.946V18.185H157.356V27.68H174.321V32H152.046Z" fill="currentColor"/>
+                </svg>
+                <h1 class="auth-title">Добро пожаловать</h1>
+                <p class="auth-subtitle">Выберите тип профиля для продолжения</p>
+            </div>
+            
+            <!-- Profile Selection Screen -->
+            <div class="profile-selection" id="profileSelection">
+                <h2 class="profile-selection-title">Выберите тип профиля</h2>
+                <div class="profile-options">
+                    <button class="profile-option" data-profile="company">
+                        <div class="profile-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M3 21H21M5 21V7L13 3V21M19 21V11L13 7M9 9H10M9 13H10M9 17H10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h3 class="profile-option-title">Компания</h3>
+                        <p class="profile-option-description">Для работодателей и компаний</p>
+                    </button>
+                    
+                    <button class="profile-option" data-profile="job-seeker">
+                        <div class="profile-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h3 class="profile-option-title">Соискатель</h3>
+                        <p class="profile-option-description">Для поиска работы</p>
+                    </button>
+                    
+                    <button class="profile-option" data-profile="facilitator">
+                        <div class="profile-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 14L21 9L12 4L3 9L12 14ZM12 14L18.16 10.53C18.71 11.66 19 12.92 19 14.24C19 15.56 18.71 16.82 18.16 17.95M12 14L5.84 10.53C5.29 11.66 5 12.92 5 14.24C5 15.56 5.29 16.82 5.84 17.95M12 14V22.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h3 class="profile-option-title">Образовательное учреждение</h3>
+                        <p class="profile-option-description">Для подготовки специалистов</p>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Auth Form Section (Hidden by default) -->
+            <div class="auth-form-section" id="authFormSection" style="display: none;">
+                <button class="back-button" id="backToProfiles">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>Назад</span>
+                </button>
+                
+                <div class="selected-profile-badge" id="selectedProfileBadge"></div>
+            
+                <div class="auth-tabs">
+                    <button class="auth-tab active" data-tab="login" id="loginTab">Вход</button>
+                    <button class="auth-tab" data-tab="signup" id="signupTab">Регистрация</button>
+                </div>
+            
+                <!-- Login Form -->
+                <form class="auth-form active" id="loginForm">
+                    <div class="form-group">
+                        <label for="loginEmail">Email</label>
+                        <input type="email" id="loginEmail" class="form-input" placeholder="example@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Пароль</label>
+                        <input type="password" id="loginPassword" class="form-input" placeholder="••••••••" required>
+                    </div>
+                    <div class="form-group-checkbox">
+                        <input type="checkbox" id="rememberMe" class="form-checkbox">
+                        <label for="rememberMe">Запомнить меня</label>
+                    </div>
+                    <button type="submit" class="auth-submit-btn">Войти</button>
+                    <a href="#" class="forgot-password">Забыли пароль?</a>
+                </form>
+                
+                <!-- Signup Form -->
+                <form class="auth-form" id="signupForm">
+                    <div class="form-group">
+                        <label for="signupName">Полное имя</label>
+                        <input type="text" id="signupName" class="form-input" placeholder="Иван Иванов" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signupEmail">Email</label>
+                        <input type="email" id="signupEmail" class="form-input" placeholder="example@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signupPassword">Пароль</label>
+                        <input type="password" id="signupPassword" class="form-input" placeholder="••••••••" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signupPasswordConfirm">Подтвердите пароль</label>
+                        <input type="password" id="signupPasswordConfirm" class="form-input" placeholder="••••••••" required>
+                    </div>
+                    <div class="form-group-checkbox">
+                        <input type="checkbox" id="agreeTerms" class="form-checkbox" required>
+                        <label for="agreeTerms">Я согласен с <a href="#" class="terms-link">условиями использования</a></label>
+                    </div>
+                    <button type="submit" class="auth-submit-btn">Зарегистрироваться</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- External JavaScript -->
+    <!-- Load configuration first -->
+    <script src="./assets/js/config.js"></script>
+    
+    <!-- Load API services -->
+    <script src="./assets/js/api-service.js"></script>
+    <script src="./assets/js/ui-utils.js"></script>
+    <script src="./assets/js/auth-api.js"></script>
+    
+    <!-- Load authentication script -->
+    <script src="./assets/js/auth.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <!-- Homepage -->
+  <url>
+    <loc>https://promme.ru/</loc>
+    <lastmod>2024-01-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  
+  <!-- Main index page -->
+  <url>
+    <loc>https://promme.ru/index.html</loc>
+    <lastmod>2024-01-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  
+  <!-- Vacancy page template -->
+  <url>
+    <loc>https://promme.ru/vacancy.html</loc>
+    <lastmod>2024-01-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Note: Individual vacancy pages would be added dynamically by backend -->
+  <!-- Example:
+  <url>
+    <loc>https://promme.ru/vacancy.html?id=vacancy_123</loc>
+    <lastmod>2024-01-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  -->
+
+</urlset>
+

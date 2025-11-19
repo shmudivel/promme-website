@@ -1,0 +1,50 @@
+# PROMME Website Demo - Cursor Rules
+
+## Project Overview
+This is a static website for PROMME - a job portal for the industrial sector in the Moscow region. The site features job search functionality, company listings, and an interactive map of industrial parks.
+
+## Tech Stack
+- HTML5, CSS3, JavaScript (Vanilla JS)
+- Static site (no build process required)
+- Yandex Maps integration
+
+## How to Start the Project
+
+### Starting the Development Server
+1. Navigate to the project root directory
+2. Start a local HTTP server using Python:
+   ```bash
+   python3 -m http.server 8000
+   ```
+3. Open your browser and navigate to: http://localhost:8000
+
+### Alternative Server Options
+- Using Node.js:
+  ```bash
+  npx http-server -p 8000
+  ```
+- Using PHP:
+  ```bash
+  php -S localhost:8000
+  ```
+
+## Project Structure
+- `index.html` - Main website file
+- `assets/css/` - Stylesheets
+  - `main.css` - Main stylesheet
+  - `ymaps.css` - Yandex Maps styles
+- `assets/js/` - JavaScript files
+  - `main.js` - Main application logic
+  - `map.js` - Map functionality
+- `assets/images/` - Image assets
+
+## Code Style Guidelines
+- Use self-explanatory variable names
+- Follow existing code formatting and patterns
+- Maintain consistent indentation
+
+## Important Notes
+- This is a static website, no build process or package installation required
+- The site uses Yandex Maps API for the interactive map feature
+- Default port is 8000, but can be changed if needed
+

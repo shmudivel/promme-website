@@ -1,0 +1,19 @@
+# robots.txt for PROMME Website
+
+User-agent: *
+Allow: /
+
+# Disallow admin or private pages
+Disallow: /profile.html
+Disallow: /auth.html
+
+# Allow search engines to index main pages
+Allow: /index.html
+Allow: /vacancy.html
+
+# Sitemap location
+Sitemap: https://promme.ru/sitemap.xml
+
+# Crawl delay (optional)
+Crawl-delay: 1
+

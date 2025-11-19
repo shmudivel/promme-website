@@ -31,12 +31,24 @@
                         </a>
                     </div>
                     <div class="nav-actions">
-                        <button class="btn-post-vacancy">
-                            <span>Разместить вакансию</span>
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </button>
+                        <!-- Auth Buttons (shown when not logged in) -->
+                        <div class="auth-buttons" id="authButtons">
+                            <button class="btn-login" id="loginBtn">
+                                <span>Вход</span>
+                            </button>
+                        </div>
+                        
+                        <!-- User Profile (shown when logged in) -->
+                        <div class="user-profile" id="userProfile" style="display: none;">
+                            <a href="profile.html" class="user-name" id="userName" style="text-decoration: none; color: inherit; cursor: pointer;">Пользователь</a>
+                            <button class="btn-logout" id="logoutBtn" aria-label="Выйти">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M16 17L21 12L16 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M21 12H9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </button>
+                        </div>
                         <button class="btn-menu" aria-label="Menu">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <rect x="4" y="4" width="6" height="6" rx="1" fill="currentColor"/>
@@ -49,6 +61,214 @@
                 </div>
             </nav>
         </header>
+
+        <!-- AI Chat Modal -->
+        <div class="ai-chat-modal" id="aiChatModal">
+            <div class="ai-chat-modal-content">
+                <button class="ai-chat-close-btn" id="aiChatCloseBtn" aria-label="Close AI Chat">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                
+                <div class="ai-chat-header">
+                    <div class="ai-chat-avatar">
+                        <svg width="32" height="32" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8 12C8 9.79086 9.79086 8 12 8H24C26.2091 8 28 9.79086 28 12V24C28 26.2091 26.2091 28 24 28H16L10 34V28H12C9.79086 28 8 26.2091 8 24V12Z" fill="#8B5FD8"/>
+                            <path d="M20 18C20 15.7909 21.7909 14 24 14H36C38.2091 14 40 15.7909 40 18V30C40 32.2091 38.2091 34 36 34H28L22 40V34H24C21.7909 34 20 32.2091 20 30V18Z" fill="#FF6B35"/>
+                            <text x="30" y="27" text-anchor="middle" fill="white" font-size="11" font-weight="bold" font-family="Arial, sans-serif">AI</text>
+                        </svg>
+                    </div>
+                    <div class="ai-chat-header-text">
+                        <h3>PROMME AI Ассистент</h3>
+                        <p>Здесь, чтобы помочь вам</p>
+                    </div>
+                </div>
+                
+                <div class="ai-chat-body" id="aiChatBody">
+                    <!-- Initial Message -->
+                    <div class="ai-chat-messages" id="aiChatMessages">
+                        <div class="ai-message">
+                            <div class="ai-message-avatar">AI</div>
+                            <div class="ai-message-content">
+                                <p>Привет! 👋 Я помогу вам заполнить профиль.</p>
+                                <p>Хотите, чтобы я помог заполнить ваш профиль автоматически?</p>
+                                <p>Вы можете загрузить резюме (PDF, DOCX, TXT) или просто написать о себе, и я заполню форму за вас!</p>
+                            </div>
+                        </div>
+                        
+                        <div class="ai-message-actions" id="aiInitialActions">
+                            <button class="ai-action-btn ai-action-yes" id="aiActionYes">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M5 13L9 17L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                Да, помогите заполнить
+                            </button>
+                            <button class="ai-action-btn ai-action-no" id="aiActionNo">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                Нет, спасибо
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Upload/Text Input Section (Hidden by default) -->
+                    <div class="ai-chat-input-section" id="aiChatInputSection" style="display: none;">
+                        <!-- Upload Area -->
+                        <div class="ai-chat-upload-area" id="aiChatUploadArea">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V15M17 8L12 3M12 3L7 8M12 3V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <p>Перетащите файл сюда</p>
+                            <button class="ai-chat-upload-btn" id="aiChatUploadBtn">Выберите файл</button>
+                            <input type="file" id="aiChatFileInput" accept=".pdf,.doc,.docx,.txt" style="display: none;">
+                            <span class="ai-chat-hint">PDF, DOC, DOCX, TXT</span>
+                        </div>
+                        
+                        <div class="ai-chat-divider">или</div>
+                        
+                        <!-- Text Input -->
+                        <div class="ai-chat-text-area">
+                            <textarea 
+                                id="aiChatTextInput" 
+                                class="ai-chat-textarea" 
+                                placeholder="Расскажите о себе..."
+                                rows="4"
+                            ></textarea>
+                            <button class="ai-chat-send-btn" id="aiChatSendBtn">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M22 2L11 13M22 2L15 22L11 13M22 2L2 9L11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                Отправить
+                            </button>
+                        </div>
+                        
+                        <!-- Progress Section -->
+                        <div class="ai-chat-progress" id="aiChatProgress" style="display: none;">
+                            <div class="ai-progress-bar">
+                                <div class="ai-progress-fill" id="aiChatProgressFill"></div>
+                            </div>
+                            <p id="aiChatProgressText">Анализируем...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profile Form Section (shown in background when AI is helping) -->
+        <div class="profile-form-overlay" id="profileFormOverlay" style="display: none;">
+            <div class="profile-form-container">
+                <h2 class="profile-form-title">Заполнение профиля</h2>
+                <p class="profile-form-subtitle">AI ассистент поможет вам заполнить эту форму автоматически</p>
+                
+                <form class="profile-form" id="profileForm">
+                    <div class="profile-form-group">
+                        <label>Полное имя</label>
+                        <input type="text" class="profile-input" id="profileName" placeholder="Иван Иванов">
+                    </div>
+                    
+                    <div class="profile-form-group">
+                        <label>Email</label>
+                        <input type="email" class="profile-input" id="profileEmail" placeholder="example@email.com">
+                    </div>
+                    
+                    <div class="profile-form-group">
+                        <label>Телефон</label>
+                        <input type="tel" class="profile-input" id="profilePhone" placeholder="+7 (999) 123-45-67">
+                    </div>
+                    
+                    <div class="profile-form-group">
+                        <label>Должность</label>
+                        <input type="text" class="profile-input" id="profilePosition" placeholder="Инженер-программист">
+                    </div>
+                    
+                    <div class="profile-form-group">
+                        <label>Опыт работы (лет)</label>
+                        <input type="number" class="profile-input" id="profileExperience" placeholder="5">
+                    </div>
+                    
+                    <div class="profile-form-group">
+                        <label>Образование</label>
+                        <textarea class="profile-textarea" id="profileEducation" rows="2" placeholder="Высшее, МГУ, Факультет компьютерных наук"></textarea>
+                    </div>
+                    
+                    <div class="profile-form-group">
+                        <label>Навыки</label>
+                        <textarea class="profile-textarea" id="profileSkills" rows="3" placeholder="JavaScript, React, Node.js, Python"></textarea>
+                    </div>
+                    
+                    <div class="profile-form-group">
+                        <label>О себе</label>
+                        <textarea class="profile-textarea" id="profileAbout" rows="4" placeholder="Расскажите о себе, своих достижениях и целях"></textarea>
+                    </div>
+                    
+                    <div class="profile-form-actions">
+                        <button type="submit" class="profile-submit-btn">Сохранить профиль</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- AI Profile Form Modal -->
+        <div class="ai-profile-modal" id="aiProfileModal">
+            <div class="ai-profile-modal-content">
+                <button class="ai-profile-close-btn" id="aiProfileCloseBtn" aria-label="Close">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                
+                <div class="ai-profile-header">
+                    <h2>Заполнение профиля с помощью AI</h2>
+                    <p>Загрузите резюме или опишите себя, и я заполню форму автоматически</p>
+                </div>
+                
+                <div class="ai-profile-body">
+                    <!-- Upload Section -->
+                    <div class="ai-upload-section">
+                        <div class="ai-upload-area" id="aiUploadArea">
+                            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V15M17 8L12 3M12 3L7 8M12 3V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <h3>Перетащите файл сюда</h3>
+                            <p>или</p>
+                            <button class="ai-upload-btn" id="aiUploadBtn">Выберите файл</button>
+                            <input type="file" id="aiFileInput" accept=".pdf,.doc,.docx,.txt" style="display: none;">
+                            <p class="ai-upload-hint">Поддерживаются: PDF, DOC, DOCX, TXT</p>
+                        </div>
+                        
+                        <div class="ai-upload-progress" id="aiUploadProgress" style="display: none;">
+                            <div class="ai-progress-bar">
+                                <div class="ai-progress-fill" id="aiProgressFill"></div>
+                            </div>
+                            <p id="aiProgressText">Анализируем ваш файл...</p>
+                        </div>
+                    </div>
+                    
+                    <div class="ai-divider">
+                        <span>или</span>
+                    </div>
+                    
+                    <!-- Text Input Section -->
+                    <div class="ai-text-section">
+                        <label for="aiTextInput">Расскажите о себе</label>
+                        <textarea 
+                            id="aiTextInput" 
+                            class="ai-text-input" 
+                            placeholder="Например: Я инженер-программист с 5-летним опытом работы в JavaScript и React. Работал в компании XYZ над проектами электронной коммерции..."
+                            rows="6"
+                        ></textarea>
+                        <button class="ai-submit-text-btn" id="aiSubmitTextBtn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M22 2L11 13M22 2L15 22L11 13M22 2L2 9L11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            Отправить
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- Mobile Menu Modal -->
         <div class="menu-modal" id="menuModal">
@@ -434,12 +654,9 @@
                 <!-- Left Section: Main Heading & CTA Button -->
                 <div class="footer-left">
                     <h2 class="footer-hero-title">Найти<br>специалиста</h2>
-                    <button class="footer-cta-button">
-                        <span>Разместить вакансию</span>
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </button>
+                    <div class="footer-auth-buttons">
+                        <button class="footer-btn-login" id="footerLoginBtn">Вход</button>
+                    </div>
                 </div>
                 
                 <!-- Center Section: Navigation Menu -->
@@ -503,6 +720,18 @@
 
     <!-- External JavaScript -->
     <script src="https://api-maps.yandex.ru/v3/?apikey=YOUR_API_KEY&lang=ru_RU" defer></script>
+    
+    <!-- Load configuration first -->
+    <script src="./assets/js/config.js"></script>
+    
+    <!-- Load API services -->
+    <script src="./assets/js/api-service.js"></script>
+    <script src="./assets/js/ui-utils.js"></script>
+    <script src="./assets/js/auth-api.js"></script>
+    <script src="./assets/js/profile-api.js"></script>
+    <script src="./assets/js/vacancies-api.js"></script>
+    
+    <!-- Load main application scripts -->
     <script src="./assets/js/main.js" defer></script>
     <script src="./assets/js/map.js" defer></script>
 </body>
