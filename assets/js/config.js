@@ -17,16 +17,16 @@ const CONFIG = {
         API_TIMEOUT: 30000,
         
         // Supabase Configuration (FREE database & auth)
-        SUPABASE_URL: '', // Add your Supabase project URL here
-        SUPABASE_ANON_KEY: '', // Add your Supabase anon key here
-        USE_SUPABASE: false, // Set to true to use Supabase instead of mock data
+        SUPABASE_URL: 'https://mskikoksudxjhpnpsoal.supabase.co', // ✅ Supabase URL
+        SUPABASE_ANON_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1za2lrb2tzdWR4amhwbnBzb2FsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM1NTc5MjEsImV4cCI6MjA3OTEzMzkyMX0.A2I8TM58PG5PImrH6XQHPkDAUFSdFSHIRjnx5mvWytE', // ✅ Supabase Key
+        USE_SUPABASE: true, // ✅ Using Supabase!
         
         // Other settings
         ENABLE_LOGGING: true,
         ENABLE_DEBUG: true,
         YANDEX_MAPS_API_KEY: 'YOUR_DEV_API_KEY',
         AI_API_URL: 'http://localhost:3000/api/ai',
-        ENABLE_MOCK_DATA: true, // Set to false when Supabase is configured
+        ENABLE_MOCK_DATA: false, // ✅ Mock data disabled - using Supabase!
         SESSION_TIMEOUT: 3600000, // 1 hour
     },
     staging: {
@@ -53,8 +53,8 @@ const CONFIG = {
         API_TIMEOUT: 30000,
         
         // Supabase Configuration
-        SUPABASE_URL: '', // Add your Supabase project URL here
-        SUPABASE_ANON_KEY: '', // Add your Supabase anon key here
+        SUPABASE_URL: 'https://mskikoksudxjhpnpsoal.supabase.co', // ✅ Supabase URL
+        SUPABASE_ANON_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1za2lrb2tzdWR4amhwbnBzb2FsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM1NTc5MjEsImV4cCI6MjA3OTEzMzkyMX0.A2I8TM58PG5PImrH6XQHPkDAUFSdFSHIRjnx5mvWytE', // ✅ Supabase Key
         USE_SUPABASE: true,
         
         // Other settings
