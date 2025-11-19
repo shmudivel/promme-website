@@ -499,7 +499,19 @@
             
             // Get initials
             const initials = name.split(' ').map(word => word[0]).join('').substring(0, 2).toUpperCase();
-            document.getElementById('profileAvatar').textContent = initials;
+            const avatarElement = document.getElementById('profileAvatar');
+            
+            // Check if there's a saved profile photo
+            if (userData.profilePhoto) {
+                // Display the saved photo
+                avatarElement.style.backgroundImage = `url(${userData.profilePhoto})`;
+                avatarElement.style.backgroundSize = 'cover';
+                avatarElement.style.backgroundPosition = 'center';
+                avatarElement.textContent = '';
+            } else {
+                // Show initials
+                avatarElement.textContent = initials;
+            }
             
             // Profile type
             const profileTypeLabel = userData.profileTypeLabel || 'Соискатель';
@@ -890,13 +902,104 @@
         }
         
         function handlePhotoUpload(e) {
-            if (e.target.files[0]) {
-                showVideoProcessing();
+            const file = e.target.files[0];
+            if (!file) return;
+            
+            // Check if it's an image
+            if (!file.type.startsWith('image/')) {
+                alert('❌ Пожалуйста, выберите изображение');
+                return;
             }
+            
+            // Check file size (max 5MB)
+            if (file.size > 5 * 1024 * 1024) {
+                alert('❌ Файл слишком большой. Максимум 5MB');
+                return;
+            }
+            
+            // Show loading
+            const avatar = document.querySelector('.profile-avatar');
+            const originalContent = avatar ? avatar.innerHTML : '';
+            if (avatar) {
+                avatar.innerHTML = '<div style="font-size: 24px;">⏳</div>';
+            }
+            
+            // Read and store the file
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const photoDataUrl = event.target.result;
+                
+                // Update avatar
+                if (avatar) {
+                    avatar.style.backgroundImage = `url(${photoDataUrl})`;
+                    avatar.style.backgroundSize = 'cover';
+                    avatar.style.backgroundPosition = 'center';
+                    avatar.innerHTML = '';
+                }
+                
+                // Save to localStorage
+                const userData = JSON.parse(localStorage.getItem('prommeAuthUser') || '{}');
+                userData.profilePhoto = photoDataUrl;
+                localStorage.setItem('prommeAuthUser', JSON.stringify(userData));
+                
+                // Show success message
+                alert('✅ Фото успешно загружено!');
+                
+                // Show video generation option
+                setTimeout(() => {
+                    if (confirm('🎬 Хотите создать AI видео с этим фото?')) {
+                        showVideoProcessing();
+                    }
+                }, 500);
+            };
+            
+            reader.onerror = function() {
+                alert('❌ Ошибка при загрузке фото');
+                if (avatar) avatar.innerHTML = originalContent;
+            };
+            
+            reader.readAsDataURL(file);
         }
         
         function handleExtraPhotos(e) {
-            alert(`✅ Загружено ${e.target.files.length} фото!`);
+            const files = Array.from(e.target.files);
+            if (files.length === 0) return;
+            
+            // Check if all are images
+            const invalidFiles = files.filter(f => !f.type.startsWith('image/'));
+            if (invalidFiles.length > 0) {
+                alert('❌ Можно загружать только изображения');
+                return;
+            }
+            
+            // Check total size
+            const totalSize = files.reduce((sum, f) => sum + f.size, 0);
+            if (totalSize > 10 * 1024 * 1024) {
+                alert('❌ Общий размер файлов слишком большой. Максимум 10MB');
+                return;
+            }
+            
+            let loadedCount = 0;
+            const photoDataUrls = [];
+            
+            files.forEach((file, index) => {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    photoDataUrls.push(event.target.result);
+                    loadedCount++;
+                    
+                    if (loadedCount === files.length) {
+                        // All files loaded, save to localStorage
+                        const userData = JSON.parse(localStorage.getItem('prommeAuthUser') || '{}');
+                        userData.extraPhotos = userData.extraPhotos || [];
+                        userData.extraPhotos.push(...photoDataUrls);
+                        localStorage.setItem('prommeAuthUser', JSON.stringify(userData));
+                        
+                        alert(`✅ Загружено ${files.length} фото!\\n\\n💡 Фото сохранены и будут отображаться в вашем профиле`);
+                    }
+                };
+                reader.readAsDataURL(file);
+            });
         }
         
         function showVideoProcessing() {
