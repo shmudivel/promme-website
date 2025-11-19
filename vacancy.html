@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вакансия - PROMME</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+    <style>
+        .vacancy-page {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #FF8C42 0%, #FF6B35 50%, #E94397 100%);
+            padding: 40px 20px;
+        }
+
+        .vacancy-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .vacancy-header {
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            margin-bottom: 24px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .vacancy-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .vacancy-back:hover {
+            gap: 12px;
+        }
+
+        .vacancy-company {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .company-logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #F0F0F0 0%, #E0E0E0 100%);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .company-info h1 {
+            margin: 0 0 8px 0;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--black);
+        }
+
+        .company-name {
+            font-size: 18px;
+            color: #666;
+            font-weight: 600;
+        }
+
+        .vacancy-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            background: #F8F8F8;
+            border-radius: 12px;
+            font-size: 14px;
+            color: var(--text-color);
+        }
+
+        .meta-icon {
+            width: 20px;
+            height: 20px;
+            color: var(--primary-color);
+        }
+
+        .vacancy-salary {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 32px;
+        }
+
+        .vacancy-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-apply {
+            flex: 1;
+            padding: 16px 32px;
+            background: linear-gradient(135deg, #FF8C42 0%, #FF6B35 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-apply:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(255, 107, 53, 0.3);
+        }
+
+        .btn-save {
+            padding: 16px 24px;
+            background: white;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-save:hover {
+            background: #FFF5F2;
+        }
+
+        .vacancy-content {
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .content-section {
+            margin-bottom: 32px;
+        }
+
+        .content-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--black);
+            margin: 0 0 16px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #FF8C42 0%, #FF6B35 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .section-text {
+            font-size: 16px;
+            line-height: 1.6;
+            color: var(--text-color);
+        }
+
+        .section-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .section-list li {
+            padding: 12px 0;
+            padding-left: 32px;
+            position: relative;
+            font-size: 16px;
+            line-height: 1.6;
+            color: var(--text-color);
+        }
+
+        .section-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        /* AI Chat Button */
+        .ai-chat-btn-vacancy {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #8B5FD8 0%, #FF6B35 100%);
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 8px 24px rgba(139, 95, 216, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+        .ai-chat-btn-vacancy:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(139, 95, 216, 0.5);
+        }
+
+        @media (max-width: 768px) {
+            .vacancy-header,
+            .vacancy-content {
+                padding: 24px;
+            }
+
+            .company-info h1 {
+                font-size: 24px;
+            }
+
+            .vacancy-salary {
+                font-size: 24px;
+            }
+
+            .vacancy-actions {
+                flex-direction: column;
+            }
+
+            .btn-save {
+                padding: 14px 24px;
+            }
+
+            .ai-chat-btn-vacancy {
+                width: 56px;
+                height: 56px;
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="vacancy-page">
+        <div class="vacancy-container">
+            <!-- Header -->
+            <div class="vacancy-header">
+                <a href="profile.html" class="vacancy-back">
+                    ← Назад к профилю
+                </a>
+
+                <div class="vacancy-company">
+                    <div class="company-logo" id="companyLogo">🏭</div>
+                    <div class="company-info">
+                        <h1 id="vacancyTitle">Сварщик 5 разряда</h1>
+                        <div class="company-name" id="companyName">ООО "Уралмашзавод"</div>
+                    </div>
+                </div>
+
+                <div class="vacancy-meta">
+                    <div class="meta-item">
+                        <svg class="meta-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M21 10C21 17 12 23 12 23C12 23 3 17 3 10C3 7.61305 3.94821 5.32387 5.63604 3.63604C7.32387 1.94821 9.61305 1 12 1C14.3869 1 16.6761 1.94821 18.364 3.63604C20.0518 5.32387 21 7.61305 21 10Z" stroke="currentColor" stroke-width="2"/>
+                            <path d="M12 13C13.6569 13 15 11.6569 15 10C15 8.34315 13.6569 7 12 7C10.3431 7 9 8.34315 9 10C9 11.6569 10.3431 13 12 13Z" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                        <span id="vacancyLocation">Екатеринбург</span>
+                    </div>
+                    <div class="meta-item">
+                        <svg class="meta-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span id="vacancyExperience">От 5 лет</span>
+                    </div>
+                    <div class="meta-item">
+                        <svg class="meta-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 8V12L15 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                        <span id="vacancySchedule">Полная занятость</span>
+                    </div>
+                </div>
+
+                <div class="vacancy-salary" id="vacancySalary">
+                    80 000 - 120 000 ₽
+                </div>
+
+                <div class="vacancy-actions">
+                    <button class="btn-apply" onclick="applyForVacancy()">Откликнуться</button>
+                    <button class="btn-save" onclick="saveVacancy()">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: inline; vertical-align: middle; margin-right: 8px;">
+                            <path d="M19 21L12 16L5 21V5C5 4.46957 5.21071 3.96086 5.58579 3.58579C5.96086 3.21071 6.46957 3 7 3H17C17.5304 3 18.0391 3.21071 18.4142 3.58579C18.7893 3.96086 19 4.46957 19 5V21Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        Сохранить
+                    </button>
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="vacancy-content">
+                <div class="content-section">
+                    <h2 class="section-title">
+                        <div class="section-icon">📋</div>
+                        Описание вакансии
+                    </h2>
+                    <p class="section-text" id="vacancyDescription">
+                        Ведущее промышленное предприятие Уральского региона приглашает опытного сварщика 5 разряда для работы на производстве металлоконструкций. Предлагаем стабильную работу, достойную заработную плату и полный социальный пакет.
+                    </p>
+                </div>
+
+                <div class="content-section">
+                    <h2 class="section-title">
+                        <div class="section-icon">✓</div>
+                        Требования
+                    </h2>
+                    <ul class="section-list" id="vacancyRequirements">
+                        <li>Опыт работы сварщиком от 5 лет</li>
+                        <li>Удостоверение сварщика 5 разряда (НАКС)</li>
+                        <li>Владение методами РДС, МАГ, ТИГ</li>
+                        <li>Умение читать чертежи</li>
+                        <li>Ответственность и внимательность</li>
+                    </ul>
+                </div>
+
+                <div class="content-section">
+                    <h2 class="section-title">
+                        <div class="section-icon">💼</div>
+                        Обязанности
+                    </h2>
+                    <ul class="section-list" id="vacancyResponsibilities">
+                        <li>Выполнение сварочных работ на металлоконструкциях</li>
+                        <li>Контроль качества сварных швов</li>
+                        <li>Работа по техническим картам</li>
+                        <li>Соблюдение техники безопасности</li>
+                    </ul>
+                </div>
+
+                <div class="content-section">
+                    <h2 class="section-title">
+                        <div class="section-icon">🎁</div>
+                        Мы предлагаем
+                    </h2>
+                    <ul class="section-list" id="vacancyBenefits">
+                        <li>Заработная плата от 80 000 до 120 000 рублей</li>
+                        <li>Официальное трудоустройство</li>
+                        <li>Полный социальный пакет</li>
+                        <li>Спецодежда и оборудование</li>
+                        <li>Корпоративное питание</li>
+                        <li>Возможность карьерного роста</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI Chat Button (Always visible) -->
+    <button class="ai-chat-btn-vacancy" id="aiChatBtnVacancy" aria-label="AI Помощник">
+        <svg width="32" height="32" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 12C8 9.79086 9.79086 8 12 8H24C26.2091 8 28 9.79086 28 12V24C28 26.2091 26.2091 28 24 28H16L10 34V28H12C9.79086 28 8 26.2091 8 24V12Z" fill="white" opacity="0.9"/>
+            <path d="M20 18C20 15.7909 21.7909 14 24 14H36C38.2091 14 40 15.7909 40 18V30C40 32.2091 38.2091 34 36 34H28L22 40V34H24C21.7909 34 20 32.2091 20 30V18Z" fill="white"/>
+            <text x="30" y="27" text-anchor="middle" fill="#8B5FD8" font-size="11" font-weight="bold" font-family="Arial, sans-serif">AI</text>
+        </svg>
+    </button>
+
+    <script>
+        // Load vacancy data from URL parameters and initialize AI chat
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const vacancyId = urlParams.get('id');
+            
+            // Sample vacancies data
+            const vacancies = {
+                'welder-5': {
+                    title: 'Сварщик 5 разряда',
+                    company: 'ООО "Уралмашзавод"',
+                    logo: '🏭',
+                    location: 'Екатеринбург',
+                    experience: 'От 5 лет',
+                    schedule: 'Полная занятость',
+                    salary: '80 000 - 120 000 ₽',
+                    description: 'Ведущее промышленное предприятие Уральского региона приглашает опытного сварщика 5 разряда для работы на производстве металлоконструкций. Предлагаем стабильную работу, достойную заработную плату и полный социальный пакет.',
+                    requirements: [
+                        'Опыт работы сварщиком от 5 лет',
+                        'Удостоверение сварщика 5 разряда (НАКС)',
+                        'Владение методами РДС, МАГ, ТИГ',
+                        'Умение читать чертежи',
+                        'Ответственность и внимательность'
+                    ],
+                    responsibilities: [
+                        'Выполнение сварочных работ на металлоконструкциях',
+                        'Контроль качества сварных швов',
+                        'Работа по техническим картам',
+                        'Соблюдение техники безопасности'
+                    ],
+                    benefits: [
+                        'Заработная плата от 80 000 до 120 000 рублей',
+                        'Официальное трудоустройство',
+                        'Полный социальный пакет',
+                        'Спецодежда и оборудование',
+                        'Корпоративное питание',
+                        'Возможность карьерного роста'
+                    ]
+                },
+                'welder-4': {
+                    title: 'Сварщик 4 разряда',
+                    company: 'АО "Челябинский трубопрокатный завод"',
+                    logo: '⚙️',
+                    location: 'Челябинск',
+                    experience: 'От 3 лет',
+                    schedule: 'Полная занятость',
+                    salary: '70 000 - 100 000 ₽',
+                    description: 'Крупное металлургическое предприятие ищет квалифицированного сварщика для работы на производстве труб большого диаметра.',
+                    requirements: [
+                        'Опыт работы от 3 лет',
+                        'Удостоверение сварщика 4 разряда',
+                        'Опыт сварки труб',
+                        'Знание методов РДС, МАГ'
+                    ],
+                    responsibilities: [
+                        'Сварка трубных изделий',
+                        'Контроль швов',
+                        'Работа по чертежам'
+                    ],
+                    benefits: [
+                        'Стабильная зарплата 70-100 тыс. руб',
+                        'Официальное оформление',
+                        'Медицинская страховка',
+                        'Бесплатное питание'
+                    ]
+                },
+                'engineer': {
+                    title: 'Инженер-технолог',
+                    company: 'ООО "Производственная компания"',
+                    logo: '🔧',
+                    location: 'Екатеринбург',
+                    experience: 'От 2 лет',
+                    schedule: 'Полная занятость',
+                    salary: '90 000 - 150 000 ₽',
+                    description: 'Требуется инженер-технолог для разработки технологических процессов и контроля производства.',
+                    requirements: [
+                        'Высшее техническое образование',
+                        'Опыт работы от 2 лет',
+                        'Знание AutoCAD, SolidWorks',
+                        'Навыки работы с технической документацией'
+                    ],
+                    responsibilities: [
+                        'Разработка технологических процессов',
+                        'Контроль качества продукции',
+                        'Оптимизация производства'
+                    ],
+                    benefits: [
+                        'Конкурентная зарплата',
+                        'Полный соцпакет',
+                        'ДМС',
+                        'Обучение за счет компании'
+                    ]
+                }
+            };
+            
+            // Load vacancy data
+            if (vacancyId && vacancies[vacancyId]) {
+                const vacancy = vacancies[vacancyId];
+                
+                document.getElementById('vacancyTitle').textContent = vacancy.title;
+                document.getElementById('companyName').textContent = vacancy.company;
+                document.getElementById('companyLogo').textContent = vacancy.logo;
+                document.getElementById('vacancyLocation').textContent = vacancy.location;
+                document.getElementById('vacancyExperience').textContent = vacancy.experience;
+                document.getElementById('vacancySchedule').textContent = vacancy.schedule;
+                document.getElementById('vacancySalary').textContent = vacancy.salary;
+                document.getElementById('vacancyDescription').textContent = vacancy.description;
+                
+                // Requirements
+                const reqList = document.getElementById('vacancyRequirements');
+                reqList.innerHTML = vacancy.requirements.map(req => `<li>${req}</li>`).join('');
+                
+                // Responsibilities
+                const respList = document.getElementById('vacancyResponsibilities');
+                respList.innerHTML = vacancy.responsibilities.map(resp => `<li>${resp}</li>`).join('');
+                
+                // Benefits
+                const benList = document.getElementById('vacancyBenefits');
+                benList.innerHTML = vacancy.benefits.map(ben => `<li>${ben}</li>`).join('');
+                
+                // Update page title
+                document.title = `${vacancy.title} - ${vacancy.company} - PROMME`;
+            }
+            
+            // Initialize AI Chat button
+            const aiChatBtn = document.getElementById('aiChatBtnVacancy');
+            if (aiChatBtn) {
+                aiChatBtn.addEventListener('click', function() {
+                    openVacancyAIChat();
+                });
+            }
+            
+            // Auto-open chat after 3 seconds
+            setTimeout(function() {
+                openVacancyAIChat();
+            }, 3000);
+        });
+        
+        function applyForVacancy() {
+            alert('✅ Отклик отправлен!\n\nМы отправили ваше резюме работодателю.\nОжидайте ответа на указанный email.');
+            
+            // Open AI chat after applying
+            setTimeout(function() {
+                openVacancyAIChat();
+            }, 500);
+        }
+        
+        function saveVacancy() {
+            alert('💾 Вакансия сохранена!\n\nВы можете найти её в разделе "Избранное".');
+        }
+        
+        // Open AI chat for vacancy page
+        function openVacancyAIChat() {
+            // Check if chat already exists
+            const existingChat = document.getElementById('aiVacancyChat');
+            if (existingChat) {
+                return; // Don't open multiple chats
+            }
+            
+            // Hide AI button when chat opens
+            const aiBtn = document.getElementById('aiChatBtnVacancy');
+            if (aiBtn) {
+                aiBtn.style.display = 'none';
+            }
+            
+            // Get vacancy title for context
+            const vacancyTitle = document.getElementById('vacancyTitle')?.textContent || 'эту вакансию';
+            
+            // Create AI chat overlay
+            const chatOverlay = document.createElement('div');
+            chatOverlay.id = 'aiVacancyChat';
+            chatOverlay.style.cssText = `
+                position: fixed;
+                bottom: 24px;
+                right: 24px;
+                width: 400px;
+                max-width: calc(100vw - 48px);
+                background: white;
+                border-radius: 20px;
+                box-shadow: 0 12px 48px rgba(0, 0, 0, 0.2);
+                padding: 24px;
+                z-index: 10000;
+                animation: slideUp 0.3s ease;
+            `;
+            
+            chatOverlay.innerHTML = `
+                <style>
+                    @keyframes slideUp {
+                        from { transform: translateY(100px); opacity: 0; }
+                        to { transform: translateY(0); opacity: 1; }
+                    }
+                </style>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #8B5FD8 0%, #FF6B35 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 18px;">AI</div>
+                        <div>
+                            <div style="font-weight: 700; color: #1a1a1a; font-size: 16px;">PROMME AI Ассистент</div>
+                            <div style="font-size: 12px; color: #666;">Помощь с вакансией</div>
+                        </div>
+                    </div>
+                    <button onclick="closeVacancyAIChat()" style="background: none; border: none; font-size: 28px; cursor: pointer; color: #999; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: all 0.2s ease;">×</button>
+                </div>
+                
+                <div style="background: linear-gradient(135deg, #F8F8F8 0%, #F0F0F0 100%); border-radius: 12px; padding: 20px; margin-bottom: 16px;">
+                    <p style="margin: 0 0 12px 0; color: #1a1a1a; font-size: 15px; font-weight: 600;">
+                        💡 Чем могу помочь с этой вакансией?
+                    </p>
+                    <p style="margin: 0 0 4px 0; color: #333; font-size: 14px;">
+                        Я помогу вам:
+                    </p>
+                </div>
+                
+                <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px;">
+                    <button onclick="coverLetterHelp()" style="width: 100%; padding: 14px 16px; background: white; border: 2px solid #F0F0F0; border-radius: 12px; text-align: left; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; gap: 12px;">
+                        <span style="font-size: 24px;">✍️</span>
+                        <div>
+                            <div style="font-weight: 600; color: #1a1a1a; font-size: 14px;">Составить сопроводительное письмо</div>
+                            <div style="font-size: 12px; color: #666;">Персональное письмо для отклика</div>
+                        </div>
+                    </button>
+                    
+                    <button onclick="interviewPrep()" style="width: 100%; padding: 14px 16px; background: white; border: 2px solid #F0F0F0; border-radius: 12px; text-align: left; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; gap: 12px;">
+                        <span style="font-size: 24px;">🎯</span>
+                        <div>
+                            <div style="font-weight: 600; color: #1a1a1a; font-size: 14px;">Подготовиться к собеседованию</div>
+                            <div style="font-size: 12px; color: #666;">Типичные вопросы и ответы</div>
+                        </div>
+                    </button>
+                    
+                    <button onclick="salaryAdvice()" style="width: 100%; padding: 14px 16px; background: white; border: 2px solid #F0F0F0; border-radius: 12px; text-align: left; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; gap: 12px;">
+                        <span style="font-size: 24px;">💰</span>
+                        <div>
+                            <div style="font-weight: 600; color: #1a1a1a; font-size: 14px;">Совет по зарплате</div>
+                            <div style="font-size: 12px; color: #666;">Анализ рыночных ставок</div>
+                        </div>
+                    </button>
+                    
+                    <button onclick="similarVacancies()" style="width: 100%; padding: 14px 16px; background: white; border: 2px solid #F0F0F0; border-radius: 12px; text-align: left; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; gap: 12px;">
+                        <span style="font-size: 24px;">🔍</span>
+                        <div>
+                            <div style="font-weight: 600; color: #1a1a1a; font-size: 14px;">Похожие вакансии</div>
+                            <div style="font-size: 12px; color: #666;">Другие подходящие предложения</div>
+                        </div>
+                    </button>
+                </div>
+                
+                <!-- Custom Question Input -->
+                <div style="margin-bottom: 16px; padding-top: 16px; border-top: 1px solid #F0F0F0;">
+                    <div style="display: flex; gap: 8px;">
+                        <input type="text" id="customQuestionInput" placeholder="Задайте свой вопрос..." style="flex: 1; padding: 12px 16px; border: 2px solid #F0F0F0; border-radius: 12px; font-size: 14px; outline: none; transition: all 0.3s ease;" onfocus="this.style.borderColor='#FF6B35'" onblur="this.style.borderColor='#F0F0F0'" onkeypress="if(event.key === 'Enter') sendCustomQuestion()">
+                        <button onclick="sendCustomQuestion()" style="padding: 12px 20px; background: linear-gradient(135deg, #FF8C42 0%, #FF6B35 100%); color: white; border: none; border-radius: 12px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; white-space: nowrap;">
+                            Отправить
+                        </button>
+                    </div>
+                </div>
+                
+                <button onclick="closeVacancyAIChat()" style="width: 100%; padding: 12px; background: #F5F5F5; color: #333; border: none; border-radius: 12px; font-weight: 600; cursor: pointer; font-size: 14px; transition: all 0.3s ease;">
+                    Закрыть
+                </button>
+            `;
+            
+            document.body.appendChild(chatOverlay);
+        }
+        
+        // Close vacancy AI chat
+        function closeVacancyAIChat() {
+            const chat = document.getElementById('aiVacancyChat');
+            if (chat) {
+                chat.remove();
+            }
+            
+            // Show AI button again
+            const aiBtn = document.getElementById('aiChatBtnVacancy');
+            if (aiBtn) {
+                aiBtn.style.display = 'flex';
+            }
+        }
+        
+        // AI Chat action functions
+        function coverLetterHelp() {
+            alert('✍️ Сопроводительное письмо\n\nУважаемый работодатель!\n\nМеня заинтересовала вакансия "' + 
+                  (document.getElementById('vacancyTitle')?.textContent || 'Сварщик') + 
+                  '" в вашей компании.\n\nИмею опыт работы более 12 лет, владею всеми необходимыми методами сварки (РДС, МАГ, ТИГ). Готов приступить к работе в ближайшее время.\n\nС уважением,\n[Ваше имя]');
+        }
+        
+        function interviewPrep() {
+            alert('🎯 Подготовка к собеседованию\n\nВозможные вопросы:\n\n1. Расскажите о вашем опыте сварки\n2. Какими методами сварки владеете?\n3. Опишите самый сложный проект\n4. Как контролируете качество швов?\n5. Готовы к сверхурочной работе?\n\nСовет: Подготовьте примеры из опыта!');
+        }
+        
+        function salaryAdvice() {
+            const salary = document.getElementById('vacancySalary')?.textContent || '80 000 - 120 000 ₽';
+            alert('💰 Анализ зарплаты\n\nПредлагаемая зарплата: ' + salary + 
+                  '\n\nЭто соответствует рыночным ставкам для данной позиции в регионе.\n\nРекомендации:\n• Можно обсуждать верхнюю границу при опыте 10+ лет\n• Уточните наличие премий и бонусов\n• Узнайте о индексации зарплаты');
+        }
+        
+        function similarVacancies() {
+            alert('🔍 Похожие вакансии\n\nНайдены похожие предложения:\n\n• Сварщик 4 разряда - 70-100k ₽\n• Инженер-технолог - 90-150k ₽\n• Контролёр сварочных работ - 85-130k ₽\n\nХотите посмотреть список?');
+            closeVacancyAIChat();
+            setTimeout(function() {
+                window.location.href = 'profile.html';
+            }, 1000);
+        }
+        
+        // Send custom question from user input
+        function sendCustomQuestion() {
+            const inputElement = document.getElementById('customQuestionInput');
+            if (!inputElement) return;
+            
+            const userQuestion = inputElement.value.trim();
+            
+            if (!userQuestion) {
+                alert('⚠️ Пожалуйста, введите ваш вопрос');
+                return;
+            }
+            
+            // Clear input
+            inputElement.value = '';
+            
+            // Show processing feedback
+            const vacancyTitle = document.getElementById('vacancyTitle')?.textContent || 'эту вакансию';
+            
+            // Simulate AI response (in production, this would call a real AI API)
+            setTimeout(function() {
+                alert('🤖 AI Ответ\n\n' +
+                      'Вопрос: ' + userQuestion + '\n\n' +
+                      'Спасибо за ваш вопрос! Я помогу вам с информацией о вакансии "' + vacancyTitle + '".\n\n' +
+                      'Для получения детального ответа, пожалуйста, обратитесь напрямую к работодателю через кнопку "Откликнуться" или свяжитесь с нами для дополнительной консультации.\n\n' +
+                      'Есть ли что-то еще, чем я могу помочь?');
+            }, 500);
+        }
+    </script>
+</body>
+</html>
+
