@@ -1083,7 +1083,7 @@
             const supabaseUrl = window.AppConfig?.SUPABASE_URL || 'https://mskikoksudxjhpnpsoal.supabase.co';
             
             // Use video from Supabase Storage
-            const videoUrl = `${supabaseUrl}/storage/v1/object/public/videos/avatar-job-seeker-default.mp4`;
+            const videoUrl = `${supabaseUrl}/storage/v1/object/public/videos/01_jobseeker_video_compressed.mp4`;
             
             const userData = JSON.parse(localStorage.getItem('prommeAuthUser') || '{}');
             userData.profileVideo = videoUrl;
